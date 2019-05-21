@@ -1,0 +1,1 @@
+﻿console.log('NPM Install successfully');

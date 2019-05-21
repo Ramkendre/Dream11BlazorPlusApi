@@ -1,0 +1,47 @@
+﻿@model IEnumerable<FabricApplication.Models.PlayerRole>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="padding-top:50px;">
+    <div class="panel panel-primary">
+        <div class="panel-heading panel-head">Users</div>
+        <div class="panel-body">
+            <div class="btn-group">
+                <i class="glyphicon glyphicon-plus"></i>@Html.ActionLink("Add PlayerRole", "Create")
+            </div>
+            @*<a id="createEditStudentModal" data-toggle="modal" href="@Url.Action("Create")" data-target="#modal-action-student" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-plus"></i>  Add User
+                </a>*@
+            <div class="top-buffer"></div>
+            <div style="padding-top:12px;"></div>
+            <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

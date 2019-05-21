@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="fabric:/Dream11ServiceFabrics" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters>
+    <Parameter Name="Dream11StatelessService_ASPNETCORE_ENVIRONMENT" Value="Development" />
+    <Parameter Name="Dream11StatelessService_InstanceCount" Value="1" />
+    <Parameter Name="GraphQLAPIGatewayService_ASPNETCORE_ENVIRONMENT" Value="Development" />
+    <Parameter Name="GraphQLAPIGatewayService_InstanceCount" Value="1" />
+    <Parameter Name="PlayerPerfomaStatelessService_ASPNETCORE_ENVIRONMENT" Value="Development" />
+    <Parameter Name="PlayerPerfomaStatelessService_InstanceCount" Value="1" />
+    <Parameter Name="RulesStatefulApiService_ASPNETCORE_ENVIRONMENT" Value="Development" />
+    <Parameter Name="RulesStatefulApiService_PartitionCount" Value="1" />
+    <Parameter Name="RulesStatefulApiService_MinReplicaSetSize" Value="3" />
+    <Parameter Name="RulesStatefulApiService_TargetReplicaSetSize" Value="3" />
+    <Parameter Name="UserStatefulService_ASPNETCORE_ENVIRONMENT" Value="Development" />
+    <Parameter Name="UserStatefulService_PartitionCount" Value="1" />
+    <Parameter Name="UserStatefulService_MinReplicaSetSize" Value="3" />
+    <Parameter Name="UserStatefulService_TargetReplicaSetSize" Value="3" />
+  </Parameters>
+</Application>

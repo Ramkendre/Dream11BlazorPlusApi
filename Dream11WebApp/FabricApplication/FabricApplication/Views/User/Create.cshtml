@@ -1,0 +1,124 @@
+﻿@model FabricApplication.Models.User
+@using FabricApplication.Models.Boot
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>Create</h2>*@
+
+
+<div style="padding-top:50px;">
+    <div class="panel panel-primary">
+        <div class="panel-heading panel-head">Add Users</div>
+        <div class="panel-body">
+
+            @using (Html.BeginForm())
+            {
+                @*@Html.Partial("_ModalHeader", new ModalHeader { Heading = String.Format("{0} Student", @Model.Id == 0 ? "Add" : "Edit") })
+                    <div class="modal-body form-horizontal">*@
+
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmailAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" onclick="return validateData();" />
+                        </div>
+                    </div>
+                </div>
+                @*</div>
+                    @Html.Partial("_ModalFooter", new ModalFooter { })*@
+            }
+
+            <div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    function validateData() {
+        debugger;
+        var testEmail = /^[A-Z0-9._%+-]+([A-Z0-9-]+\.)+[A-Z]{2,4}$/;
+
+        if ($("#FirstName").val() == "") {
+            swal("Please enter First Name!");
+            return false;
+        } else if ($("#LastName").val() == "") {
+            swal("Please enter Last Name !");
+            return false;
+        } else if ($("#UserName").val() == "") {
+            swal("Please enter User Name !");
+            return false;
+        }
+        else if ($("#EmailAddress").val() == "") {
+            swal("Please enter Email Address !");
+            return false;
+        }
+        //else if (!testEmail.test($("#EmailAddress").val()))
+        //{
+        //    swal("InValid Email Address !");
+        //    return false;
+        //}
+        else if ($("#Age").val() == "") {
+            swal("Please enter Age!");
+            return false;
+        }
+        else {
+            swal("User Profile Created Successfully!");
+            return true;
+        }
+
+    }
+
+</script>

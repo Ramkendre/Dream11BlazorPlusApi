@@ -1,0 +1,91 @@
+﻿@model IEnumerable<FabricApplication.Models.User>
+@using FabricApplication.Models.Boot
+@using FabricApplication.Code
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>Index</h2>*@
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
+
+<div style="padding-top:50px;">
+    <div class="panel panel-primary">
+        <div class="panel-heading panel-head">Users</div>
+        <div class="panel-body">
+            <div class="btn-group">
+                    <i class="glyphicon glyphicon-plus"></i>@Html.ActionLink("Add User", "Create")
+                </div>
+            @*<a id="createEditStudentModal" data-toggle="modal" href="@Url.Action("Create")" data-target="#modal-action-student" class="btn btn-primary">
+                <i class="glyphicon glyphicon-plus"></i>  Add User
+            </a>*@
+            <div class="top-buffer"></div>
+            <div style="padding-top:12px;"></div>
+            <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.LastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UserName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmailAddress)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Age)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmailAddress)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Age)
+                            </td>
+                            <td>
+                                @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |*@
+                                <a id="editUserModal" data-toggle="modal" href="@Url.Action("Edit","User", new {id=@item.Id })" data-target="#modal-action-student" class="btn btn-info">
+                                    <i class="glyphicon glyphicon-pencil"></i>  Edit
+                                </a>
+                                @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
+                                <a id="editUserModal" data-toggle="modal" href="@Url.Action("Delete","User", new {id=@item.Id })" data-target="#modal-action-student" class="btn btn-info">
+                                    <i class="glyphicon glyphicon-trash"></i>  Delete
+                                </a>
+                                @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_Modal", new BootstrapModel { ID = "modal-action-student", AreaLabeledId = "modal-action-student-label", Size = ModalSize.Large })
+@section scripts{
+    @Scripts.Render("~/Scripts/student-index.js")
+} 

@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="Dream11ServiceFabricsType" ApplicationTypeVersion="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters>
+    <Parameter Name="Dream11StatelessService_ASPNETCORE_ENVIRONMENT" DefaultValue="" />
+    <Parameter Name="Dream11StatelessService_InstanceCount" DefaultValue="-1" />
+    <Parameter Name="GraphQLAPIGatewayService_ASPNETCORE_ENVIRONMENT" DefaultValue="" />
+    <Parameter Name="GraphQLAPIGatewayService_InstanceCount" DefaultValue="-1" />
+    <Parameter Name="PlayerPerfomaStatelessService_ASPNETCORE_ENVIRONMENT" DefaultValue="" />
+    <Parameter Name="PlayerPerfomaStatelessService_InstanceCount" DefaultValue="-1" />
+    <Parameter Name="RulesStatefulApiService_ASPNETCORE_ENVIRONMENT" DefaultValue="" />
+    <Parameter Name="RulesStatefulApiService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="RulesStatefulApiService_PartitionCount" DefaultValue="1" />
+    <Parameter Name="RulesStatefulApiService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="UserStatefulService_ASPNETCORE_ENVIRONMENT" DefaultValue="" />
+    <Parameter Name="UserStatefulService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="UserStatefulService_PartitionCount" DefaultValue="1" />
+    <Parameter Name="UserStatefulService_TargetReplicaSetSize" DefaultValue="3" />
+  </Parameters>
+  <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
+       should match the Name and Version attributes of the ServiceManifest element defined in the 
+       ServiceManifest.xml file. -->
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="Dream11StatelessServicePkg" ServiceManifestVersion="1.0.0" />
+    <ConfigOverrides />
+    <EnvironmentOverrides CodePackageRef="code">
+      <EnvironmentVariable Name="ASPNETCORE_ENVIRONMENT" Value="[Dream11StatelessService_ASPNETCORE_ENVIRONMENT]" />
+    </EnvironmentOverrides>
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="GraphQLAPIGatewayServicePkg" ServiceManifestVersion="1.0.0" />
+    <ConfigOverrides />
+    <EnvironmentOverrides CodePackageRef="code">
+      <EnvironmentVariable Name="ASPNETCORE_ENVIRONMENT" Value="[GraphQLAPIGatewayService_ASPNETCORE_ENVIRONMENT]" />
+    </EnvironmentOverrides>
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="PlayerPerfomaStatelessServicePkg" ServiceManifestVersion="1.0.0" />
+    <ConfigOverrides />
+    <EnvironmentOverrides CodePackageRef="code">
+      <EnvironmentVariable Name="ASPNETCORE_ENVIRONMENT" Value="[PlayerPerfomaStatelessService_ASPNETCORE_ENVIRONMENT]" />
+    </EnvironmentOverrides>
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="RulesStatefulApiServicePkg" ServiceManifestVersion="1.0.0" />
+    <ConfigOverrides />
+    <EnvironmentOverrides CodePackageRef="code">
+      <EnvironmentVariable Name="ASPNETCORE_ENVIRONMENT" Value="[RulesStatefulApiService_ASPNETCORE_ENVIRONMENT]" />
+    </EnvironmentOverrides>
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="UserStatefulServicePkg" ServiceManifestVersion="1.0.0" />
+    <ConfigOverrides />
+    <EnvironmentOverrides CodePackageRef="code">
+      <EnvironmentVariable Name="ASPNETCORE_ENVIRONMENT" Value="[UserStatefulService_ASPNETCORE_ENVIRONMENT]" />
+    </EnvironmentOverrides>
+  </ServiceManifestImport>
+  <DefaultServices>
+    <Service Name="Dream11StatelessService" ServicePackageActivationMode="ExclusiveProcess">
+      <StatelessService ServiceTypeName="Dream11StatelessServiceType" InstanceCount="[Dream11StatelessService_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>
+    <Service Name="GraphQLAPIGatewayService" ServicePackageActivationMode="ExclusiveProcess">
+      <StatelessService ServiceTypeName="GraphQLAPIGatewayServiceType" InstanceCount="[GraphQLAPIGatewayService_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>
+    <Service Name="PlayerPerfomaStatelessService" ServicePackageActivationMode="ExclusiveProcess">
+      <StatelessService ServiceTypeName="PlayerPerfomaStatelessServiceType" InstanceCount="[PlayerPerfomaStatelessService_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>
+    <Service Name="RulesStatefulApiService" ServicePackageActivationMode="ExclusiveProcess">
+      <StatefulService ServiceTypeName="RulesStatefulApiServiceType" TargetReplicaSetSize="[RulesStatefulApiService_TargetReplicaSetSize]" MinReplicaSetSize="[RulesStatefulApiService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[RulesStatefulApiService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="UserStatefulService" ServicePackageActivationMode="ExclusiveProcess">
+      <StatefulService ServiceTypeName="UserStatefulServiceType" TargetReplicaSetSize="[UserStatefulService_TargetReplicaSetSize]" MinReplicaSetSize="[UserStatefulService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[UserStatefulService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <!-- The section below creates instances of service types, when an instance of this 
+         application type is created. You can also create one or more instances of service type using the 
+         ServiceFabric PowerShell module.
+         
+         The attribute ServiceTypeName below must match the name defined in the imported ServiceManifest.xml file. -->
+  </DefaultServices>
+</ApplicationManifest>
