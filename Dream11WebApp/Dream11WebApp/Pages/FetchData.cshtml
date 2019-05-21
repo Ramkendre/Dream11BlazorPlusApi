@@ -1,0 +1,49 @@
+﻿@page "/fetchdata"
+@*@inject HttpClient Http
+    @using Dream11WebApp.Model
+
+
+
+    @if (ShoppingItems == null)
+    {
+        <p>ShoppingItem is null</p>
+    }
+    else
+    {
+        <ul>
+            @foreach (var item in ShoppingItems)
+            {
+                <li>@item</li>
+            }
+        </ul>
+    }
+    @functions
+    {
+        [Parameter]
+        List<string> ShoppingItems { get; set; }
+        // IEnumerable<Shop> = shopp.GetItem();
+    }*@
+
+
+@inject AppState appState
+
+<h2>Current Total: £@totalExpenses</h2>
+<ul>
+    @foreach (var obj in exps)
+    {
+    <li>
+        @obj.Amount
+        @obj.Description
+    </li>
+    }
+    </ul>
+
+    @functions {
+        private decimal totalExpenses => appState.Expenses.Sum(x => x.Amount);
+        List<Expense> exps => appState.Expenses.ToList();
+
+        protected override void OnInit()
+        {
+            appState.OnExpenseAdded += StateHasChanged;
+        }
+    }

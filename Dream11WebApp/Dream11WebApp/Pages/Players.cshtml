@@ -1,0 +1,540 @@
+﻿@page "/Players/{matchid:int}/{userteamid:int}"
+@inject IUriHelper UriHelper
+@inject IplayerData PlayerData
+@inject AppState appState
+
+<div class="lazy-create-team">
+    <div class="create-team js--create-team">
+        <div class="js--desktop-team-preview">
+        </div>
+        <div>
+            <div>
+                <div class="headerContainer_85dde headerFixed_38df7">
+                    <div class="defaultHeaderContent_00a63">
+                        <div class="headerLeft_97209">
+                            @*<button class="new-button whiteIconButton_6998a">
+                            *@
+
+                            @*<i class="materialIcon_10a4f" style="height: 24px; width: 24px; font-size: 24px;">keyboard_arrow_left</i>*@
+                            <i class="fas fa-angle-left" style="font-size:48px;color:white"></i>
+                        </div>
+                        <div class="headerCenter_aa154"><span class="timer_3d48d">2h 01m left</span></div>
+                        <div class="headerRight_b78f0">
+                            <div class="ctAppHeaderRight_029e0">
+                                <span>
+                                    <a class="floatingAnchorButton_fac02" href="https://fancode.com/cricket/kolkata-knight-riders-v-royal-challengers-bangalore-match-preview/?_sg_article_id_=7401" target="_blank">
+                                        <img src="/public/imgs/fc-header-logo.png" class="guruIcon_0a307">
+                                    </a>
+                                </span><a class="floatingAnchorButton_fac02" href="/cricket/howtoplay" target="_blank">
+                                    <div class="helpLink_4c95c">?</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div><div>
+                        <div>
+                            <div>
+                                <div class="onboarding--info-header container_b87ae containerExtended_cdca5">
+                                    <div class="maxInfoText_19e12">Max 7 players from a team</div><div class="infoContent_9a018">
+                                        <div class="leftInfoContent_8b4f7">
+                                            <div class="playerSelectionContainer_bdd92">
+                                                <div>Players</div><div class="flexContainer_029e0">
+                                                    <div class="selectedCount_e68c1">@selectedPlayer.Count</div>
+                                                    <div class="totalCount_5e151">/11</div>
+                                                </div>
+                                            </div><div class="squadContainer_7ce16">
+                                                <div class="squadFlagContainer_47acd">
+                                                    <img src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/KKR-CR3@2x.png" class="flag_008b5">
+                                                </div>
+                                                <div class="squadOneText_3ad2c"><div class="teamName_a2024">KKR</div><div class="teamCount_bfa59 teamCountExtended_8b6e8">1</div></div>
+                                            </div>
+                                        </div>
+                                        <div class="rightInfoContent_579f7">
+                                            <div class="squadContainer_7ce16">
+                                                <div class="squadTwoText_b9766">
+                                                    <div class="teamName_a2024">RCB</div><div class="teamCount_bfa59 teamCountExtended_8b6e8">1</div>
+                                                </div>
+                                                <div class="squadFlagContainer_47acd"><img src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/BRC-CR3@2x.png" class="flag_008b5"></div>
+                                            </div>
+                                            <div class="creditsContainer_9c26e"><div>Credits Left</div><div class="creditsText_4bef4"><div>@totalCredits</div></div></div>
+                                        </div>
+                                    </div>
+                                    <div class="progressContainer_00657">
+                                        <div class="stepperContainer_b9ae4">
+                                            <div class="@(@selectedPlayer.Count > 0 ? "stepperBlock_8b62f activeStepper_2007e" : "stepperBlock_8b62f inactiveStepper_4d390" )"><span class="@(@selectedPlayer.Count == 1 ? "activeNumber_89478" : "InactiveNumber_89478" )">1</span></div>
+                                            <div class="@(@selectedPlayer.Count > 1 ? "stepperBlock_8b62f activeStepper_2007e" : "stepperBlock_8b62f inactiveStepper_4d390" )"><span class="@(@selectedPlayer.Count == 2 ? "activeNumber_89478" : "InactiveNumber_89478" )">2</span></div>
+                                            <div class="@(@selectedPlayer.Count > 2 ? "stepperBlock_8b62f activeStepper_2007e" : "stepperBlock_8b62f inactiveStepper_4d390" )"><span class="@(@selectedPlayer.Count == 3 ? "activeNumber_89478" : "InactiveNumber_89478" )">3</span></div>
+                                            <div class="@(@selectedPlayer.Count > 3 ? "stepperBlock_8b62f activeStepper_2007e" : "stepperBlock_8b62f inactiveStepper_4d390" )"><span class="@(@selectedPlayer.Count == 4 ? "activeNumber_89478" : "InactiveNumber_89478" )">4</span></div>
+                                            <div class="@(@selectedPlayer.Count > 4 ? "stepperBlock_8b62f activeStepper_2007e" : "stepperBlock_8b62f inactiveStepper_4d390" )"><span class="@(@selectedPlayer.Count == 5 ? "activeNumber_89478" : "InactiveNumber_89478" )">5</span></div>
+                                            <div class="@(@selectedPlayer.Count > 5 ? "stepperBlock_8b62f activeStepper_2007e" : "stepperBlock_8b62f inactiveStepper_4d390" )"><span class="@(@selectedPlayer.Count == 6 ? "activeNumber_89478" : "InactiveNumber_89478" )">6</span></div>
+                                            <div class="@(@selectedPlayer.Count > 6 ? "stepperBlock_8b62f activeStepper_2007e" : "stepperBlock_8b62f inactiveStepper_4d390" )"><span class="@(@selectedPlayer.Count == 7 ? "activeNumber_89478" : "InactiveNumber_89478" )">7</span></div>
+                                            <div class="@(@selectedPlayer.Count > 7 ? "stepperBlock_8b62f activeStepper_2007e" : "stepperBlock_8b62f inactiveStepper_4d390" )"><span class="@(@selectedPlayer.Count == 8 ? "activeNumber_89478" : "InactiveNumber_89478" )">8</span></div>
+                                            <div class="@(@selectedPlayer.Count > 8 ? "stepperBlock_8b62f activeStepper_2007e" : "stepperBlock_8b62f inactiveStepper_4d390" )"><span class="@(@selectedPlayer.Count == 9 ? "activeNumber_89478" : "InactiveNumber_89478" )">9</span></div>
+                                            <div class="@(@selectedPlayer.Count > 9 ? "stepperBlock_8b62f activeStepper_2007e" : "stepperBlock_8b62f inactiveStepper_4d390" )"><span class="@(@selectedPlayer.Count == 10 ? "activeNumber_89478" :"InactiveNumber_89478" )">10</span></div>
+                                            <div class="@(@selectedPlayer.Count > 10 ? "stepperBlock_8b62f activeStepper_2007e" : "stepperBlock_8b62f inactiveStepper_4d390")">
+                                                <span class="lastStepper_2bce1">11</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="mainWrapper_62470 noError_5e15a">
+                    <div class="tabsMainContainer_9ca8c tabsMainContainerExtended_d5200">
+                        <div class="create-team-tabs tabsWrapper_43944">
+                            <div class="createTeamTabsContainer_5ba85" onclick="@(() => SelectRoleTab("WK"))">
+                                <div class="roleTabWrapper_a3522">
+                                    <div class="roleTabItem_603ae">
+                                        <div class="createTeamTabTitle_99a5a">WK</div><div class="createTeamTabsCount_19658">(@wkCount)</div>
+                                    </div>
+                                    <div class="@(RType == Common.RoleType.WK.ToString() ? "highlight roleTabHighlight_ee4c9 roleTabHighlightActive_28bb8" : "highlight roleTabHighlight_ee4c9 roleTabHighlightInactive_4d390")"></div>
+                                </div>
+                            </div>
+                            <div class="createTeamTabsContainer_5ba85" onclick="@(() => SelectRoleTab("BAT"))">
+                                <div class="roleTabWrapper_a3522">
+                                    <div class="roleTabItem_603ae">
+                                        <div class="createTeamTabTitle_99a5a">BAT</div><div class="createTeamTabsCount_19658">(@bastCount)</div>
+                                    </div>
+                                    <div class="@(RType == Common.RoleType.BAT.ToString() ? "highlight roleTabHighlight_ee4c9 roleTabHighlightActive_28bb8" : "highlight roleTabHighlight_ee4c9 roleTabHighlightInactive_4d390")"></div>
+                                </div>
+                            </div>
+                            <div class="createTeamTabsContainer_5ba85" onclick="@(() => SelectRoleTab("AR"))">
+                                <div class="roleTabWrapper_a3522">
+                                    <div class="roleTabItem_603ae">
+                                        <div class="createTeamTabTitle_99a5a">AR</div><div class="createTeamTabsCount_19658">(@alCount)</div>
+                                    </div>
+                                    <div class="@(RType == Common.RoleType.AR.ToString() ? "highlight roleTabHighlight_ee4c9 roleTabHighlightActive_28bb8" : "highlight roleTabHighlight_ee4c9 roleTabHighlightInactive_4d390")"></div>
+                                </div>
+                            </div>
+                            <div class="createTeamTabsContainer_5ba85" onclick="@(() => SelectRoleTab("BOWL"))">
+                                <div class="roleTabWrapper_a3522">
+                                    <div class="roleTabItem_603ae">
+                                        <div class="createTeamTabTitle_99a5a">BOWL</div><div class="createTeamTabsCount_19658">(@bowlCount)</div>
+                                    </div>
+                                    <div class="@(RType == Common.RoleType.BOWL.ToString() ? "highlight roleTabHighlight_ee4c9 roleTabHighlightActive_28bb8" : "highlight roleTabHighlight_ee4c9 roleTabHighlightInactive_4d390")"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="createTeamTabsHelpContainer_ce9c9">@picklable</div>
+                        <div class="ctSortingHeader_a6515">
+                            <div class="playerCardCell_bf9d8 playerCardAvatarCell_2b8d1"></div>
+                            <div class="playerCardInfoCell_ba412">
+                                <div class="playerCardCell_bf9d8 playerCardNameCell_50086"><span>PLAYERS</span></div>
+                                <div class="playerCardCell_bf9d8 playerPointsCell_aa0e3"><span>POINTS</span></div>
+                                <div class="playerCardCell_bf9d8 playerPointsCell_aa0e3 activeSortKey_c7202">
+                                    <span>
+                                        CREDITS<span>
+                                            @*<i class="materialIcon_10a4f" style="height: 10px; width: 10px; font-size: 10px;">arrow_downward</i>*@
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="sortingHeaderIconPlaceHolder_43273"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*PlayerList*@
+                    @*<PlayerType></PlayerType>*@
+                    <div class="playerListContainer_c345d">
+                        <div class="playerscrollRight">
+                            <div class="create-team__team-selector__player-list">
+                                @if (Playerlist == null)
+                                {
+                                    <p>Player list is loading...</p>
+                                }
+                                else
+                                {
+                                    @foreach (var player in Playerlist)
+                                    {
+                                        <div class="js--create-team__team-selector__player-card onboarding--player-card-0 playerCard_42b9d" onclick="@(() => SelectPlayer(player,player.player.isSelected))">
+                                            <div class="playerCardCell_bf9d8 playerCardAvatarCell_2b8d1">
+                                                <div class="imageContainer_029e0">
+                                                    <div class="playerImageProfile_43b1b">
+                                                        <div class="playerImageContainer_6e52e">
+                                                            <div class="playerImage_f320d" style="background-image: url(@player.player.image);">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="playerCardInfoCell_ba412 playerCardInfoContainer_d41f9">
+                                                <div class="playerCardCell_bf9d8 playerCardNameCell_50086">
+                                                    <div>
+                                                        <div class="playerName_73cad">@player.player.firstName @player.player.lastName</div><div class="playerTeamTitle_a2024"><span>@player.player.team.teamName</span><span class="light">- @player.player.playerRoleName</span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="playerCardCell_bf9d8 playerPointsCell_aa0e3">@player.player.points</div><div class="playerCardCell_bf9d8 playerPointsCell_aa0e3">@player.player.credits</div>
+                                                <div class="bold playerCardIconContainer_65be8">
+
+                                                    <div class="@(@player.player.isSelected == false ? "icon icon-plus" : "icon icon-minus")">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    @*end player list*@
+                </div>
+
+                @*Footer*@
+                <div class="footer_d9cd3">
+                    <div class="footerButtonContainer_b9ae4">
+                        <div class="js--create-team-continue-btn">
+                            @if (btncontinue == false)
+                            {
+                                <button class="new-button disabledButton_cf79e raisedGreenButton_20c05 raisedGreenButtonDisabled_e0a23" disabled="">CONTINUE</button>
+                            }
+
+                            @if (btncontinue == true)
+                            {
+                                <button class="new-button raisedGreenButton_20c05" onclick="@(() => UserCustomTeam())">CONTINUE</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+                @*end footer*@
+
+            </div><div>
+            </div><div>
+            </div>
+            <div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*selected Player Display on ground as role wise*@
+@*<PlayingEleven></PlayingEleven>*@
+
+<CricketGround selectedPlayer="@selectedPlayer"></CricketGround>
+
+
+@*<div class="appBgImage_ceacf">
+
+        <div class="footerWrapper_8622b">
+            <div class="desktopInfoWrapper_7ab46">
+                <div class="desktopInfoTop_9bf27"><span class="desktopInfoTopLeft_3d48d">India's Biggest</span><span class="desktopInfoTopRight_0db77"> Sports Game</span></div>
+                <div class="desktopInfoMiddle_ae625">6 Crore+ Users</div>
+                <div class="desktopInfoBottom_9eb8a">Download the app</div>
+                <div class="desktopDownloadLinkWrapper_4cfb2">
+                    <a target="_blank" href="https://itunes.apple.com/in/app/dream11-fantasy-sports/id1077286074" class="desktopDownloadLink_a71b9 desktopIosDownloadLink_4631b"></a>
+                    <a target="_blank" href="https://m.d11.io/Dream11-app" class="desktopDownloadLink_a71b9 desktopAndroidDownloadLink_dc1f2"></a>
+                </div>
+            </div>
+            <div class="appBgFooter_d925a"></div>
+        </div>
+
+
+        <div class="team-preview-page js--team-preview teamPreviewContainer_cdfeb desktopTeamPreviewContainer_25c6c">
+            <div class="content_eaf85 containerWithoutHeader_0f1f0" style="background-image: url(https://assets.dream11.com/public/imgs/cricket-artwork.svg);">
+                <div class="playerArea_eac11">
+                    <div>
+                        <div class="spaceAround_64779 tall_a7bdc">
+                            <div class="teamPreviewRowWrapper_0c54c">
+                                <div class="rowTitle_b91f3">Wicket-Keeper</div>
+                                <div class="spaceAround_64779 rowContent_8aa5f">
+
+                                    @foreach (var wicketkeeper in selectedPlayer.Where(p => p.playerRoleName == Common.PlayerType.WicketKeeper.ToString()).ToList())
+                                    {
+                                        <div class="spaceAround_64779 rowContent_8aa5f">
+                                            <div class="js--field-player fieldPlayerMain_32975">
+                                                <div>
+                                                    <div class="playerImageProfile_0cc1f">
+                                                        <div class="imageProfileContainer_6e52e">
+                                                            <div class="player-image-profile__image" style="background-image: url(@wicketkeeper.image);"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="playerTitleContainer_cbc2d"><div class="fieldPlayerTitle_75d21 homeTeamPlayerTitle_c0c14">@wicketkeeper.firstName @wicketkeeper.lastName</div></div>
+                                                <div class="playerPoints_d4e06">@wicketkeeper.credits  Cr</div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="teamPreviewRowWrapper_0c54c">
+                                <div class="rowTitle_b91f3">Batsmen</div>
+                                <div class="spaceAround_64779 rowContent_8aa5f">
+                                    @foreach (var bastman in selectedPlayer.Where(p => p.playerRoleName == Common.PlayerType.Bastman.ToString()).ToList())
+                                    {
+                                        <div class="spaceAround_64779 rowContent_8aa5f">
+                                            <div class="js--field-player fieldPlayerMain_32975">
+                                                <div>
+                                                    <div class="playerImageProfile_0cc1f">
+                                                        <div class="imageProfileContainer_6e52e">
+                                                            <div class="player-image-profile__image" style="background-image: url(@bastman.image);"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="playerTitleContainer_cbc2d"><div class="fieldPlayerTitle_75d21 awayTeamPlayerTitle_95944">@bastman.firstName @bastman.lastName</div></div>
+                                                <div class="playerPoints_d4e06">@bastman.credits  Cr</div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="teamPreviewRowWrapper_0c54c">
+                                <div class="rowTitle_b91f3">All-Rounders</div>
+                                <div class="spaceAround_64779 rowContent_8aa5f">
+                                    @foreach (var Allrounder in selectedPlayer.Where(p => p.playerRoleName == Common.PlayerType.Allrounder.ToString()).ToList())
+                                    {
+                                        <div class="spaceAround_64779 rowContent_8aa5f">
+                                            <div class="js--field-player fieldPlayerMain_32975">
+                                                <div>
+                                                    <div class="playerImageProfile_0cc1f">
+                                                        <div class="imageProfileContainer_6e52e">
+                                                            <div class="player-image-profile__image" style="background-image: url(@Allrounder.image);"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="playerTitleContainer_cbc2d"><div class="fieldPlayerTitle_75d21 awayTeamPlayerTitle_95944">@Allrounder.firstName @Allrounder.lastName</div></div>
+                                                <div class="playerPoints_d4e06">@Allrounder.credits  Cr</div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div><div class="teamPreviewRowWrapper_0c54c">
+                                <div class="rowTitle_b91f3">Bowlers</div>
+                                <div class="spaceAround_64779 rowContent_8aa5f">
+                                    @foreach (var Bowler in selectedPlayer.Where(p => p.playerRoleName == Common.PlayerType.Bowler.ToString()).ToList())
+                                    {
+                                        <div class="spaceAround_64779 rowContent_8aa5f">
+                                            <div class="js--field-player fieldPlayerMain_32975">
+                                                <div>
+                                                    <div class="playerImageProfile_0cc1f">
+                                                        <div class="imageProfileContainer_6e52e">
+                                                            <div class="player-image-profile__image" style="background-image: url(@Bowler.image);"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="playerTitleContainer_cbc2d"><div class="fieldPlayerTitle_75d21 awayTeamPlayerTitle_95944">@Bowler.firstName @Bowler.lastName</div></div>
+                                                <div class="playerPoints_d4e06">@Bowler.credits  Cr</div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+@*End*@
+
+@inject IJSRuntime JSRuntime
+@inject ToastService toastService
+@inject Common  common
+@functions{
+    [Parameter]
+    int matchid { get; set; }
+    [Parameter]
+    int userteamid { get; set; }
+
+    bool btncontinue { get; set; } = false;
+    double totalCredits { get; set; } = 100;
+    Player2[] Playerlist { get; set; }
+    Player2[] playerlistlocal { get; set; }
+    List<Player2> selectedPlayer { get; set; }
+    ExampleJsInterop exampleJsInterop;
+    Object autoken { get; set; }
+    protected override async Task OnInitAsync()
+    {
+
+        appState._players.Clear();
+        selectedPlayer = new List<Player2>();
+        if (playerlistlocal == null)
+            await LoadplayerInfo(matchid);
+    }
+    async Task LoadplayerInfo(int matchid)
+    {
+        exampleJsInterop = new ExampleJsInterop(JSRuntime);
+        playerlistlocal = await exampleJsInterop.GetItem<Player2[]>("CreateTeam");
+        // playerlistlocal = common.GetPlayerArray(await exampleJsInterop.GetItem<UserTeam>("CreateTeam"));
+        autoken = await exampleJsInterop.GetStringItem<Object>("utoken");
+        if (playerlistlocal == null)
+        { playerlistlocal = await PlayerData.GetPlayerInfo(matchid, autoken); }
+        else
+        {
+
+            if (playerlistlocal.Where(T => T.player.isSelected == true).Count() == 11) this.btncontinue = true;
+            if (playerlistlocal.Where(T => T.player.isSelected == true).Count() != 11) this.btncontinue = false;
+        }
+
+        Playerlist = playerlistlocal.Where(p => p.player.playerRoleName == Common.PlayerType.WK.ToString()).ToArray();
+        selectedPlayer = playerlistlocal.Where(T => T.player.isSelected == true).ToList();
+        PlayerRoleWiseCount(playerlistlocal);
+    }
+
+
+    int wkCount { get; set; }
+    int bastCount { get; set; }
+    int alCount { get; set; }
+    int bowlCount { get; set; }
+    private void PlayerRoleWiseCount(Player2[] playerslistlocal)
+    {
+        wkCount = playerlistlocal.Where(p => (p.player.playerRoleName == Common.PlayerType.WK.ToString() && p.player.isSelected == true)).Count();
+        bastCount = playerlistlocal.Where(p => (p.player.playerRoleName == Common.PlayerType.Bat.ToString() && p.player.isSelected == true)).Count();
+        alCount = playerslistlocal.Where(p => (p.player.playerRoleName == Common.PlayerType.Allrounder.ToString() && p.player.isSelected == true)).Count();
+        bowlCount = playerslistlocal.Where(p => (p.player.playerRoleName == Common.PlayerType.Bowler.ToString() && p.player.isSelected == true)).Count();
+    }
+
+    private string RType { get; set; } = Common.RoleType.WK.ToString();
+    // private enum RoleType { WK, BAT, AR, BOWL }
+    private string picklable { get; set; } = "Pick 1 Wicket-Keeper";
+
+    private string SelectRoleTab(string roletype)
+    {
+        selectedPlayer = playerlistlocal.Where(p => p.player.isSelected == true).ToList();
+        switch (roletype)
+        {
+            case "WK":
+                picklable = "Pick 1 Wicket-Keeper";
+                Playerlist = playerlistlocal.Where(p => p.player.playerRoleName == Common.PlayerType.WK.ToString()).ToArray();
+                return RType = roletype;
+            case "BAT":
+                picklable = "Pick 3-5 Batsmen";
+                Playerlist = playerlistlocal.Where(p => p.player.playerRoleName == Common.PlayerType.Bat.ToString()).ToArray();
+                //RemoveLocalKey();
+                RemoveLocalKey();
+                return RType = roletype;
+            case "AR":
+                picklable = "Pick 1-3 All-Rounders";
+                Playerlist = playerlistlocal.Where(p => p.player.playerRoleName == Common.PlayerType.Allrounder.ToString()).ToArray();
+                return RType = roletype;
+            case "BOWL":
+                picklable = "Pick 3-5 Bowlers";
+                Playerlist = playerlistlocal.Where(p => p.player.playerRoleName == Common.PlayerType.Bowler.ToString()).ToArray();
+                return RType = roletype;
+        }
+
+        return RType;
+    }
+
+    protected async Task RemoveLocalKey()
+    {
+        await exampleJsInterop.RemoveItem("CreateTeam");
+        await exampleJsInterop.RemoveItem("SaveTeam");
+    }
+
+    private void SelectPlayer(Player2 player, bool isselectplayer)
+    {
+        //if (selectedPlayer.Count == 5) { this.btncontinue = true; }
+        //else { this.btncontinue = false; }
+
+        int count = selectedPlayer.Where(p => p.player.playerRoleName == player.player.playerRoleName).Count();
+
+
+        switch (player.player.playerRoleName)
+        {
+            case "WK":
+                if (count <= 0) AddRemovePlayerlist(player, isselectplayer);
+                if (count > 0) RemovePlayer(player, isselectplayer);
+
+                wkCount = selectedPlayer.Where(p => p.player.playerRoleName == player.player.playerRoleName).Count();
+                break;
+            case "Bat":
+                if (count <= 4) AddRemovePlayerlist(player, isselectplayer);
+                if (count > 4) RemovePlayer(player, isselectplayer);
+                bastCount = selectedPlayer.Where(p => p.player.playerRoleName == player.player.playerRoleName).Count();
+                break;
+            case "Allrounder":
+                if (count <= 2) AddRemovePlayerlist(player, isselectplayer);
+                if (count > 2) RemovePlayer(player, isselectplayer);
+
+                alCount = selectedPlayer.Where(p => p.player.playerRoleName == player.player.playerRoleName).Count();
+                break;
+            case "Bowler":
+                if (count <= 4) AddRemovePlayerlist(player, isselectplayer);
+                if (count > 4) RemovePlayer(player, isselectplayer);
+
+                bowlCount = selectedPlayer.Where(p => p.player.playerRoleName == player.player.playerRoleName).Count();
+                break;
+        }
+
+        if (selectedPlayer.Count == 11) this.btncontinue = true;
+        if (selectedPlayer.Count != 11) this.btncontinue = false;
+
+        StateHasChanged();
+
+        ChangePlayerStatus();
+    }
+
+    private async Task ChangePlayerStatus()
+    {
+        await exampleJsInterop.SetItem<Player2[]>("CreateTeam", playerlistlocal);
+    }
+
+
+    private void RemovePlayer(Player2 player, bool isselectplayer)
+    {
+        for (int i = 0; i < Playerlist.Length; i++)
+        {
+            if (player.player.playerId == Playerlist[i].player.playerId && isselectplayer == true)
+            {
+                Playerlist[i].player.isSelected = false;
+                selectedPlayer.Remove(selectedPlayer.Where(p => p.player.playerId == Playerlist[i].player.playerId).First());
+                //appState.RemovePlayer(player.playerId);
+                totalCredits += Playerlist[i].player.credits;
+                break;
+            }
+        }
+
+        if (isselectplayer == false)
+        {
+            switch (player.player.playerRoleName)
+            {
+                case "WK":
+                    toastService.ShowToast("you can only select upto 1 WicketKeeper", Common.ToastLevel.Warning);
+                    break;
+                case "Bat":
+                    toastService.ShowToast("you can only select upto 5 Batsmans", Common.ToastLevel.Warning);
+                    break;
+                case "Allrounder":
+                    toastService.ShowToast("you can only select upto 3 All-rounders", Common.ToastLevel.Warning);
+                    break;
+                case "Bowler":
+                    toastService.ShowToast("you can only select upto 5 Bowlers", Common.ToastLevel.Warning);
+                    break;
+            }
+
+        }
+    }
+
+    private void AddRemovePlayerlist(Player2 player, bool isselectplayer)
+    {
+        for (int i = 0; i < Playerlist.Length; i++)
+        {
+            if (player.player.playerId == Playerlist[i].player.playerId && isselectplayer == false)
+            {
+                selectedPlayer.Add(player);
+                // appState.AddPlayers(player);
+                Playerlist[i].player.isSelected = true;
+                totalCredits -= Playerlist[i].player.credits;
+                break;
+            }
+            if (player.player.playerId == Playerlist[i].player.playerId && isselectplayer == true)
+            {
+                Playerlist[i].player.isSelected = false;
+                selectedPlayer.Remove(selectedPlayer.Where(p => p.player.playerId == Playerlist[i].player.playerId).First());
+                //appState.RemovePlayer(player.playerId);
+                totalCredits += Playerlist[i].player.credits;
+                break;
+            }
+        }
+    }
+
+    private void UserCustomTeam()
+    {
+        UriHelper.NavigateTo("/SaveTeam/" + matchid);
+    }
+
+}

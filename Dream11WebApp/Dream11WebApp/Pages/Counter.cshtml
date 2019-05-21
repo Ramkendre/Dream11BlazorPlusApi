@@ -1,0 +1,65 @@
+﻿@page "/counter"
+@inject AppState appState
+@inject IUriHelper urilHelper
+<h2>Add Expense</h2>
+<div class="row">
+    <div class="col-md-4">
+        <input class="form-control" bind="@expense.Description" placeholder="Enter Description..." />
+    </div>
+    <div class="col-md-2">
+        <input class="form-control" bind="@expense.Amount" placeholder="Enter Amount..." />
+    </div>
+    <div class="col-md-6">
+        <button onclick="@AddExpense" class="btn btn-primary">
+            Add
+        </button>
+    </div>
+    <div class="col-md-6">
+        <button onclick="@Naviagte" class="btn btn-primary">
+            Next Page
+        </button>
+    </div>
+</div>
+
+<div>
+    @if (matches == null)
+    {
+
+    }
+    else
+    {
+         <ul>
+             <li>@matches.name</li>
+             <li>@matches.tImeSlot</li>
+             <li>@matches.matchId</li>
+             <li>@matches.sport</li>
+         </ul>
+    }
+   
+</div>
+        @inject IJSRuntime JSRuntime
+@functions {
+    private Expense expense = new Expense();
+    Match matches { get; set; }
+    string obj { get; set; }
+    protected override async Task OnInitAsync()
+    {
+        var exampleJsInterop = new ExampleJsInterop(JSRuntime);
+        //await exampleJsInterop.CallHelloHelperSayHello("Blazor");
+        matches = await exampleJsInterop.GetItem<Match>("UserTeam2");
+       
+
+        appState._expenses.Clear();
+    }
+
+
+    private void AddExpense()
+    {
+        appState.AddExpense(expense);
+        expense = new Expense();
+    }
+    private void Naviagte()
+    {
+        urilHelper.NavigateTo("/FetchData");
+    }
+}

@@ -1,0 +1,89 @@
+﻿@page "/Registration"
+@inject ILogin   LoginData
+@inject IUriHelper UriHelper
+<div class="registrationformbackbody">
+    <div class="centered-form"> </div>
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+            <h3 class="panel-title panel-text-color">Please sign up for Dream11 <small>It's free!</small></h3>
+        </div>
+
+        <div style="margin-top: 21px"></div>
+        <div class="panel-body">
+            @*<form role="form">*@
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <input type="text" bind=@register.firstname class="form-control input-sm" placeholder="First Name" />
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <input type="text" bind=@register.lastname class="form-control input-sm" placeholder="Last Name" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <input type="text" bind=@register.username class="form-control input-sm" placeholder="User Name" />
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <input type="email" bind=@register.emailaddress class="form-control input-sm" placeholder="Email Address" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <input type="password" bind=@register.password class="form-control input-sm" placeholder="Password" />
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <input type="password" bind=@register.confirmpassword class="form-control input-sm" placeholder="Confirm Password" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <button type="submit" onclick="@Register" class="btn btn-info btn-block">Register</button>
+                </div>
+            </div>
+            @*</form>*@
+        </div>
+    </div>
+
+</div>
+
+<AdImage></AdImage>
+
+@inject ToastService toastService
+@functions{
+    Register registration { get; set; }
+    Register register = new Register();
+    private async Task Register()
+    {
+        if (register.username == null || register.password == null)
+        {
+            toastService.ShowToast("Can not null username & EmailId and password", Common.ToastLevel.Error);
+        }
+        else
+        {
+            registration = await LoginData.UserRegistration(register);
+            if (registration.firstname != null)
+            {
+                UriHelper.NavigateTo("");
+            }
+            else
+            {
+                toastService.ShowToast("Something it's wrong", Common.ToastLevel.Error);
+            }
+        }
+    }
+}

@@ -1,0 +1,395 @@
+﻿@page "/Matches"
+@inject IMatchData matchData
+@inject IUriHelper UriHelper
+
+<div class="matchListContainer_ca5d2">
+    <div class="headerContainer_31f14 headerContainerDesktop_8b6e8">
+        <div class="header_e8b8b">
+            <div class="matchCardMainTitle_7b586 matchCardMainTitleDesktop_83a22">Upcoming Matches</div>
+        </div>
+    </div>
+    @if (matches == null)
+    {
+        <div class="spinner-border text-info" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    }
+    else
+    {
+        @foreach (var match in matches)
+        {
+            <div class="matchMainContainer_7e538">
+                <a class="js--match-card matchCard_868db">
+                    <div class="card card_690e1 darkTheme_9e5a1" onclick="@(() =>  NavigatePage(match.matchId))">
+                        <div class="matchCardHeader_2fd17 matchCardHeaderDesktop_8fb22">
+                            <div class="js-match-card-header matchCardHeaderTitle_c5373 matchCardHeaderTitleDesktop_a2024">@match.seriesName</div>
+                            <div class="matchCardHeaderStatus_2b975 matchCardHeaderTitleDesktop_a2024">
+                                <div class="matchCardHeaderStatusText_585fd"></div>
+                            </div>
+                        </div><div class="matchCardMain_954a1">
+                            <div class="flex_029e0">
+                                <div class="flagWrapper_7ce16 flagWrapperLeft_b977f flagWrapperDesktop_f137b" style="background-color: rgb(141, 164, 207);">
+                                    <div class="flagLeftPosition_cac11">
+                                        <div class="lazy-loader lazyLoader_cbc2d lazyLoaderLoaded_80f0a" style="height: 64px; width: 64px;">
+                                            <img src="@match.teams[0].logo" class="rounded imgLeftsquad">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="squadShortName_a116b squadShortNameLeft_db179">@match.teams[0].teamName</div>
+                            </div>
+                            <div class="matchCardTimer_a5620 matchCardTimerDesktop_48a55"><div>@match.tImeSlot s left</div></div>
+                            <div class="flex_029e0">
+                                <div class="squadShortName_a116b squadShortNameRight_42ab0">@match.teams[1].teamName</div>
+                                <div class="flagWrapper_7ce16 flagWrapperRight_c02f4 flagWrapperDesktop_f137b" style="background-color: rgb(129, 175, 211);">
+                                    <div class="flagRightPosition_cc260">
+                                        <div class="lazy-loader lazyLoader_cbc2d lazyLoaderLoaded_80f0a" style="height: 64px; width: 64px;">
+                                            <img src="@match.teams[1].logo" class="rounded imgRightsquad">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="matchCardFooter_e8eb4 matchCardFooterDesktop_d1033">
+                            <div class="flex_029e0">
+                                <div class="contestCount_6f13e">1</div>
+                                <div class="contestTitle_0d03c">Contest Joined</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="js--match-card matchCard_868db">
+                    <div class="card card_690e1 darkTheme_9e5a1">
+                        <div class="matchCardHeader_2fd17 matchCardHeaderDesktop_8fb22">
+                            <div class="js-match-card-header matchCardHeaderTitle_c5373 matchCardHeaderTitleDesktop_a2024">IPL</div>
+                            <div class="matchCardHeaderStatus_2b975 matchCardHeaderTitleDesktop_a2024">
+                                <div class="matchCardHeaderStatusText_585fd"></div>
+                            </div>
+                        </div><div class="matchCardMain_954a1">
+                            <div class="flex_029e0">
+                                <div class="flagWrapper_7ce16 flagWrapperLeft_b977f flagWrapperDesktop_f137b" style="background-color: rgb(141, 164, 207);">
+                                    <div class="flagLeftPosition_cac11">
+                                        <div class="lazy-loader lazyLoader_cbc2d lazyLoaderLoaded_80f0a" style="height: 64px; width: 64px;">
+                                            <img src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/DC-CR3@2x.png" class="imgLeftsquad">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="squadShortName_a116b squadShortNameLeft_db179">DC</div>
+                            </div>
+                            <div class="matchCardTimer_a5620 matchCardTimerDesktop_48a55"><div>00s left</div></div>
+                            <div class="flex_029e0">
+                                <div class="squadShortName_a116b squadShortNameRight_42ab0">MI</div>
+                                <div class="flagWrapper_7ce16 flagWrapperRight_c02f4 flagWrapperDesktop_f137b" style="background-color: rgb(129, 175, 211);">
+                                    <div class="flagRightPosition_cc260">
+                                        <div class="lazy-loader lazyLoader_cbc2d lazyLoaderLoaded_80f0a" style="height: 64px; width: 64px;">
+                                            <img src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/MI-CR3@2x.png" class="imgRightsquad">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="matchCardFooter_e8eb4 matchCardFooterDesktop_d1033">
+                            <div class="flex_029e0">
+                                <div class="contestCount_6f13e">1</div>
+                                <div class="contestTitle_0d03c">Contest Joined</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="js--match-card matchCard_868db">
+                    <div class="card card_690e1 darkTheme_9e5a1">
+                        <div class="matchCardHeader_2fd17 matchCardHeaderDesktop_8fb22">
+                            <div class="js-match-card-header matchCardHeaderTitle_c5373 matchCardHeaderTitleDesktop_a2024">IPL</div>
+                            <div class="matchCardHeaderStatus_2b975 matchCardHeaderTitleDesktop_a2024">
+                                <div class="matchCardHeaderStatusText_585fd"></div>
+                            </div>
+                        </div><div class="matchCardMain_954a1">
+                            <div class="flex_029e0">
+                                <div class="flagWrapper_7ce16 flagWrapperLeft_b977f flagWrapperDesktop_f137b" style="background-color: rgb(141, 164, 207);">
+                                    <div class="flagLeftPosition_cac11">
+                                        <div class="lazy-loader lazyLoader_cbc2d lazyLoaderLoaded_80f0a" style="height: 64px; width: 64px;">
+                                            <img src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/DC-CR3@2x.png" class="imgLeftsquad">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="squadShortName_a116b squadShortNameLeft_db179">DC</div>
+                            </div>
+                            <div class="matchCardTimer_a5620 matchCardTimerDesktop_48a55"><div>00s left</div></div>
+                            <div class="flex_029e0">
+                                <div class="squadShortName_a116b squadShortNameRight_42ab0">MI</div>
+                                <div class="flagWrapper_7ce16 flagWrapperRight_c02f4 flagWrapperDesktop_f137b" style="background-color: rgb(129, 175, 211);">
+                                    <div class="flagRightPosition_cc260">
+                                        <div class="lazy-loader lazyLoader_cbc2d lazyLoaderLoaded_80f0a" style="height: 64px; width: 64px;">
+                                            <img src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/MI-CR3@2x.png" class="imgRightsquad">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="matchCardFooter_e8eb4 matchCardFooterDesktop_d1033">
+                            <div class="flex_029e0">
+                                <div class="contestCount_6f13e">1</div>
+                                <div class="contestTitle_0d03c">Contest Joined</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="js--match-card matchCard_868db">
+                    <div class="card card_690e1 darkTheme_9e5a1">
+                        <div class="matchCardHeader_2fd17 matchCardHeaderDesktop_8fb22">
+                            <div class="js-match-card-header matchCardHeaderTitle_c5373 matchCardHeaderTitleDesktop_a2024">IPL</div>
+                            <div class="matchCardHeaderStatus_2b975 matchCardHeaderTitleDesktop_a2024">
+                                <div class="matchCardHeaderStatusText_585fd"></div>
+                            </div>
+                        </div><div class="matchCardMain_954a1">
+                            <div class="flex_029e0">
+                                <div class="flagWrapper_7ce16 flagWrapperLeft_b977f flagWrapperDesktop_f137b" style="background-color: rgb(141, 164, 207);">
+                                    <div class="flagLeftPosition_cac11">
+                                        <div class="lazy-loader lazyLoader_cbc2d lazyLoaderLoaded_80f0a" style="height: 64px; width: 64px;">
+                                            <img src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/DC-CR3@2x.png" class="imgLeftsquad">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="squadShortName_a116b squadShortNameLeft_db179">DC</div>
+                            </div>
+                            <div class="matchCardTimer_a5620 matchCardTimerDesktop_48a55"><div>00s left</div></div>
+                            <div class="flex_029e0">
+                                <div class="squadShortName_a116b squadShortNameRight_42ab0">MI</div>
+                                <div class="flagWrapper_7ce16 flagWrapperRight_c02f4 flagWrapperDesktop_f137b" style="background-color: rgb(129, 175, 211);">
+                                    <div class="flagRightPosition_cc260">
+                                        <div class="lazy-loader lazyLoader_cbc2d lazyLoaderLoaded_80f0a" style="height: 64px; width: 64px;">
+                                            <img src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/MI-CR3@2x.png" class="imgRightsquad">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="matchCardFooter_e8eb4 matchCardFooterDesktop_d1033">
+                            <div class="flex_029e0">
+                                <div class="contestCount_6f13e">1</div>
+                                <div class="contestTitle_0d03c">Contest Joined</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="js--match-card matchCard_868db">
+                    <div class="card card_690e1 darkTheme_9e5a1">
+                        <div class="matchCardHeader_2fd17 matchCardHeaderDesktop_8fb22">
+                            <div class="js-match-card-header matchCardHeaderTitle_c5373 matchCardHeaderTitleDesktop_a2024">IPL</div>
+                            <div class="matchCardHeaderStatus_2b975 matchCardHeaderTitleDesktop_a2024">
+                                <div class="matchCardHeaderStatusText_585fd"></div>
+                            </div>
+                        </div><div class="matchCardMain_954a1">
+                            <div class="flex_029e0">
+                                <div class="flagWrapper_7ce16 flagWrapperLeft_b977f flagWrapperDesktop_f137b" style="background-color: rgb(141, 164, 207);">
+                                    <div class="flagLeftPosition_cac11">
+                                        <div class="lazy-loader lazyLoader_cbc2d lazyLoaderLoaded_80f0a" style="height: 64px; width: 64px;">
+                                            <img src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/DC-CR3@2x.png" class="imgLeftsquad">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="squadShortName_a116b squadShortNameLeft_db179">DC</div>
+                            </div>
+                            <div class="matchCardTimer_a5620 matchCardTimerDesktop_48a55"><div>00s left</div></div>
+                            <div class="flex_029e0">
+                                <div class="squadShortName_a116b squadShortNameRight_42ab0">MI</div>
+                                <div class="flagWrapper_7ce16 flagWrapperRight_c02f4 flagWrapperDesktop_f137b" style="background-color: rgb(129, 175, 211);">
+                                    <div class="flagRightPosition_cc260">
+                                        <div class="lazy-loader lazyLoader_cbc2d lazyLoaderLoaded_80f0a" style="height: 64px; width: 64px;">
+                                            <img src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/MI-CR3@2x.png" class="imgRightsquad">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="matchCardFooter_e8eb4 matchCardFooterDesktop_d1033">
+                            <div class="flex_029e0">
+                                <div class="contestCount_6f13e">1</div>
+                                <div class="contestTitle_0d03c">Contest Joined</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="js--match-card matchCard_868db">
+                    <div class="card card_690e1 darkTheme_9e5a1">
+                        <div class="matchCardHeader_2fd17 matchCardHeaderDesktop_8fb22">
+                            <div class="js-match-card-header matchCardHeaderTitle_c5373 matchCardHeaderTitleDesktop_a2024">IPL</div>
+                            <div class="matchCardHeaderStatus_2b975 matchCardHeaderTitleDesktop_a2024">
+                                <div class="matchCardHeaderStatusText_585fd"></div>
+                            </div>
+                        </div><div class="matchCardMain_954a1">
+                            <div class="flex_029e0">
+                                <div class="flagWrapper_7ce16 flagWrapperLeft_b977f flagWrapperDesktop_f137b" style="background-color: rgb(141, 164, 207);">
+                                    <div class="flagLeftPosition_cac11">
+                                        <div class="lazy-loader lazyLoader_cbc2d lazyLoaderLoaded_80f0a" style="height: 64px; width: 64px;">
+                                            <img src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/DC-CR3@2x.png" class="imgLeftsquad">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="squadShortName_a116b squadShortNameLeft_db179">DC</div>
+                            </div>
+                            <div class="matchCardTimer_a5620 matchCardTimerDesktop_48a55"><div>00s left</div></div>
+                            <div class="flex_029e0">
+                                <div class="squadShortName_a116b squadShortNameRight_42ab0">MI</div>
+                                <div class="flagWrapper_7ce16 flagWrapperRight_c02f4 flagWrapperDesktop_f137b" style="background-color: rgb(129, 175, 211);">
+                                    <div class="flagRightPosition_cc260">
+                                        <div class="lazy-loader lazyLoader_cbc2d lazyLoaderLoaded_80f0a" style="height: 64px; width: 64px;">
+                                            <img src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/MI-CR3@2x.png" class="imgRightsquad">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="matchCardFooter_e8eb4 matchCardFooterDesktop_d1033">
+                            <div class="flex_029e0">
+                                <div class="contestCount_6f13e">1</div>
+                                <div class="contestTitle_0d03c">Contest Joined</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="js--match-card matchCard_868db">
+                    <div class="card card_690e1 darkTheme_9e5a1">
+                        <div class="matchCardHeader_2fd17 matchCardHeaderDesktop_8fb22">
+                            <div class="js-match-card-header matchCardHeaderTitle_c5373 matchCardHeaderTitleDesktop_a2024">IPL</div>
+                            <div class="matchCardHeaderStatus_2b975 matchCardHeaderTitleDesktop_a2024">
+                                <div class="matchCardHeaderStatusText_585fd"></div>
+                            </div>
+                        </div><div class="matchCardMain_954a1">
+                            <div class="flex_029e0">
+                                <div class="flagWrapper_7ce16 flagWrapperLeft_b977f flagWrapperDesktop_f137b" style="background-color: rgb(141, 164, 207);">
+                                    <div class="flagLeftPosition_cac11">
+                                        <div class="lazy-loader lazyLoader_cbc2d lazyLoaderLoaded_80f0a" style="height: 64px; width: 64px;">
+                                            <img src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/DC-CR3@2x.png" class="imgLeftsquad">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="squadShortName_a116b squadShortNameLeft_db179">DC</div>
+                            </div>
+                            <div class="matchCardTimer_a5620 matchCardTimerDesktop_48a55"><div>00s left</div></div>
+                            <div class="flex_029e0">
+                                <div class="squadShortName_a116b squadShortNameRight_42ab0">MI</div>
+                                <div class="flagWrapper_7ce16 flagWrapperRight_c02f4 flagWrapperDesktop_f137b" style="background-color: rgb(129, 175, 211);">
+                                    <div class="flagRightPosition_cc260">
+                                        <div class="lazy-loader lazyLoader_cbc2d lazyLoaderLoaded_80f0a" style="height: 64px; width: 64px;">
+                                            <img src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/MI-CR3@2x.png" class="imgRightsquad">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="matchCardFooter_e8eb4 matchCardFooterDesktop_d1033">
+                            <div class="flex_029e0">
+                                <div class="contestCount_6f13e">1</div>
+                                <div class="contestTitle_0d03c">Contest Joined</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="js--match-card matchCard_868db">
+                    <div class="card card_690e1 darkTheme_9e5a1">
+                        <div class="matchCardHeader_2fd17 matchCardHeaderDesktop_8fb22">
+                            <div class="js-match-card-header matchCardHeaderTitle_c5373 matchCardHeaderTitleDesktop_a2024">IPL</div>
+                            <div class="matchCardHeaderStatus_2b975 matchCardHeaderTitleDesktop_a2024">
+                                <div class="matchCardHeaderStatusText_585fd"></div>
+                            </div>
+                        </div><div class="matchCardMain_954a1">
+                            <div class="flex_029e0">
+                                <div class="flagWrapper_7ce16 flagWrapperLeft_b977f flagWrapperDesktop_f137b" style="background-color: rgb(141, 164, 207);">
+                                    <div class="flagLeftPosition_cac11">
+                                        <div class="lazy-loader lazyLoader_cbc2d lazyLoaderLoaded_80f0a" style="height: 64px; width: 64px;">
+                                            <img src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/DC-CR3@2x.png" class="imgLeftsquad">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="squadShortName_a116b squadShortNameLeft_db179">DC</div>
+                            </div>
+                            <div class="matchCardTimer_a5620 matchCardTimerDesktop_48a55"><div>00s left</div></div>
+                            <div class="flex_029e0">
+                                <div class="squadShortName_a116b squadShortNameRight_42ab0">MI</div>
+                                <div class="flagWrapper_7ce16 flagWrapperRight_c02f4 flagWrapperDesktop_f137b" style="background-color: rgb(129, 175, 211);">
+                                    <div class="flagRightPosition_cc260">
+                                        <div class="lazy-loader lazyLoader_cbc2d lazyLoaderLoaded_80f0a" style="height: 64px; width: 64px;">
+                                            <img src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/MI-CR3@2x.png" class="imgRightsquad">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="matchCardFooter_e8eb4 matchCardFooterDesktop_d1033">
+                            <div class="flex_029e0">
+                                <div class="contestCount_6f13e">1</div>
+                                <div class="contestTitle_0d03c">Contest Joined</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                @*<a class="js--match-card matchCard_868db">
+                        <div class="card card_690e1 darkTheme_9e5a1">
+                            <div class="matchCardHeader_2fd17 matchCardHeaderDesktop_8fb22">
+                                <div class="js-match-card-header matchCardHeaderTitle_c5373 matchCardHeaderTitleDesktop_a2024">IPL</div>
+                                <div class="matchCardHeaderStatus_2b975 matchCardHeaderTitleDesktop_a2024">
+                                    <div class="matchCardHeaderStatusText_585fd"></div>
+                                </div>
+                            </div><div class="matchCardMain_954a1">
+                                <div class="flex_029e0">
+                                    <div class="flagWrapper_7ce16 flagWrapperLeft_b977f flagWrapperDesktop_f137b" style="background-color: rgb(141, 164, 207);">
+                                        <div class="flagLeftPosition_cac11">
+                                            <div class="lazy-loader lazyLoader_cbc2d lazyLoaderLoaded_80f0a" style="height: 64px; width: 64px;">
+                                                <img src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/DC-CR3@2x.png" class="imgLeftsquad">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="squadShortName_a116b squadShortNameLeft_db179">DC</div>
+                                </div>
+                                <div class="matchCardTimer_a5620 matchCardTimerDesktop_48a55"><div>00s left</div></div>
+                                <div class="flex_029e0">
+                                    <div class="squadShortName_a116b squadShortNameRight_42ab0">MI</div>
+                                    <div class="flagWrapper_7ce16 flagWrapperRight_c02f4 flagWrapperDesktop_f137b" style="background-color: rgb(129, 175, 211);">
+                                        <div class="flagRightPosition_cc260">
+                                            <div class="lazy-loader lazyLoader_cbc2d lazyLoaderLoaded_80f0a" style="height: 64px; width: 64px;">
+                                                <img src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/MI-CR3@2x.png" class="imgRightsquad">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="matchCardFooter_e8eb4 matchCardFooterDesktop_d1033">
+                                <div class="flex_029e0">
+                                    <div class="contestCount_6f13e">1</div>
+                                    <div class="contestTitle_0d03c">Contest Joined</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>  *@
+
+            </div>
+        }
+    }
+</div>
+
+<AdImage></AdImage>
+@functions{
+
+    Match[] matches { get; set; }
+    protected override async Task OnInitAsync()
+    {
+        await LoadMatches();
+    }
+    async Task LoadMatches()
+    {
+        matches = await matchData.GetMatches();
+    }
+
+    void NavigatePage(int matchid)
+    {
+        UriHelper.NavigateTo("/Players/" + matchid + "/"+0);
+    }
+}

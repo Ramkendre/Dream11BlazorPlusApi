@@ -1,0 +1,77 @@
+﻿
+@inject ToastService ToastService
+
+
+<div class="toast @(IsVisible ? "toast-visible" : null) @BackgroundCssClass">
+    <div class="toast-icon">
+        <i class="fa fa-@IconCssClass" aria-hidden="true"></i>
+    </div>
+    <div class="toast-body">
+        <h5>@Heading</h5>
+        <p>@Message</p>
+    </div>
+</div>
+
+@functions{
+    protected string Heading { get; set; }
+    protected string Message { get; set; }
+    protected bool IsVisible { get; set; }
+    protected string BackgroundCssClass { get; set; }
+    protected string IconCssClass { get; set; }
+
+    protected override void OnInit()
+    {
+        ToastService.OnShow += ShowToast;
+        ToastService.OnHide += HideToast;
+    }
+
+    private void ShowToast(string message, Common.ToastLevel level)
+    {
+        BuildToastSettings(level, message);
+        IsVisible = true;
+        StateHasChanged();
+    }
+
+    private void HideToast()
+    {
+        IsVisible = false;
+        StateHasChanged();
+    }
+
+    private void BuildToastSettings(Common.ToastLevel level, string message)
+    {
+        switch (level)
+        {
+            case Common.ToastLevel.Info:
+                BackgroundCssClass = "bg-info";
+                IconCssClass = "info";
+                Heading = "Info";
+                break;
+            case Common.ToastLevel.Success:
+                BackgroundCssClass = "bg-success";
+                IconCssClass = "check";
+                Heading = "Success";
+                break;
+            case Common.ToastLevel.Warning:
+                BackgroundCssClass = "bg-warning";
+                IconCssClass = "exclamation";
+                Heading = "Warning";
+                break;
+            case Common.ToastLevel.Error:
+                BackgroundCssClass = "bg-danger";
+                IconCssClass = "times";
+                Heading = "Error";
+                break;
+        }
+
+        Message = message;
+    }
+
+    public void Dispose()
+    {
+        ToastService.OnShow -= ShowToast;
+    }
+
+}
+
+

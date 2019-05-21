@@ -1,0 +1,40 @@
+﻿<div class="contest-footer container_607ce">
+    <div class="js--contest-footer innerContainer_b8f9b">
+        <div class="button-group">
+            <a class="btn btn--flat btn--bordered createbtn--bordered--white" style="border-color:white">
+                @if (contestcount == 0)
+                {<div class="text-color--white" onclick="@CreateTeam">Create Team</div>}
+                else
+                { <div class="text-color--white" onclick="@MyTeam">My Team (1)</div>}
+            </a>
+            <a class="btn btn--flat btn--background--white" >
+                <div class="js--contest-footer__joined-contests-btn">
+                    <div class="buttonItemContainer_029e0">
+                        @if (joincontestcount == 0)
+                        {<div>Joined Contests</div> }
+                        else
+                        { <div>Joined Contests (1)</div>}
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+@inject IUriHelper uriHelper
+@functions{
+
+    private int contestcount { get; set; } = 0;
+    private int joincontestcount { get; set; } = 0;
+
+    private void CreateTeam()
+    {
+        uriHelper.NavigateTo("/Players/1");
+    }
+
+    private void MyTeam()
+    {
+        uriHelper.NavigateTo("/MyTeams");
+    }
+
+}

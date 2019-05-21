@@ -1,0 +1,45 @@
+﻿@page "/Home"
+
+<div class="header">
+
+    <div class="page-header text-center bg-red">
+        <h3>Dream11</h3>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="@( SType == Common.SportType.CRICKET.ToString() ? "col-sm-3 tabItemSelected_ad8b3 tabItem_8556a" : "col-sm-3 tabItemInactive_06be2 tabItem_8556a")" onclick="@(() =>  SelectedCricketTab("CRICKET"))">
+        @Common.SportType.CRICKET
+    </div>
+    <div class="@( SType == Common.SportType.FOOTBALL.ToString() ? "col-sm-3 tabItemSelected_ad8b3 tabItem_8556a" : "col-sm-3 tabItemInactive_06be2 tabItem_8556a")" onclick="@(() =>  SelectedCricketTab("FOOTBALL"))">
+        @Common.SportType.FOOTBALL
+    </div>
+    <div class="@( SType == Common.SportType.NBA.ToString() ? "col-sm-3 tabItemSelected_ad8b3 tabItem_8556a" : "col-sm-3 tabItemInactive_06be2 tabItem_8556a")" onclick="@(() =>  SelectedCricketTab("NBA"))">
+        @Common.SportType.NBA
+    </div>
+    <div class="@( SType == Common.SportType.HOCKEY.ToString() ? "col-sm-3 tabItemSelected_ad8b3 tabItem_8556a" : "col-sm-3 tabItemInactive_06be2 tabItem_8556a")" onclick="@(() =>  SelectedCricketTab("HOCKEY"))">
+        @Common.SportType.HOCKEY
+    </div>
+</div>
+
+<Matches />
+
+<AdImage></AdImage>
+
+@*@inject ToastService toastService*@
+@functions{
+    private string SType { get; set; } = Common.SportType.CRICKET.ToString();
+    // private enum SportType { CRICKET, FOOTBALL, NBA, HOCKEY }
+
+    //protected override void OnInit()
+    //{
+    //  //  toastService.ShowToast("I'm a WARNING message", Common.ToastLevel.Warning);
+    //}
+
+    private string SelectedCricketTab(string cricket)
+    {
+        return SType = cricket;
+    }
+
+}

@@ -1,0 +1,69 @@
+﻿@page "/PracticeContest"
+
+<button class="backButton" onclick="@OnJoinClick">submit</button>
+<div class="dialog dialog--active dialog_fe4fb">
+    <div class="bg-overlay bg-overlay--fade-in"></div>
+    <div class="dialog-content dialog-content--enter">
+        <div class="low-balance-dialog js--low-balance-dialog">
+            <div class="js--low-balance-dialog">
+                <div class="dialog-header">Confirmation</div>
+                <div class="dialog-body">
+                    <div class="balanceCurrent_98c83">
+                        <div class="add-cash-dialog__balance"><span>Current Balance:</span><span><span><span class="d11-icon">₹</span><span class="currency-amount">0</span></span></span></div>
+                    </div>
+                    <div class="cashBonusText_5b6be">
+                        <div><span>Usable Cash Bonus:  </span><span><span><span class="d11-icon">₹</span><span class="currency-amount">25</span></span></span><span>  OR 10%  of the Total Entry* per match(whichever is higher)</span></div>
+                        <div class="lowBalanceDialogNote_cdbae">*Not valid for Private contests /and Public contests less than 10 members</div>
+                    </div>
+                    <div class="balanceContainer_09c83 balanceJoining_cd210"><span>Joining Amount:</span><span class="joiningAmountText_db306"><span><span class="d11-icon">₹</span><span class="currency-amount">0</span></span></span></div>
+                    <div class="tncText_d84a6">By joining this contest, you accept Dream11's T&amp;C and conﬁrm that you are not a resident of Assam, Odisha, Telangana, Nagaland or Sikkim.</div>
+                    <a href="https://fantasycricket.dream11.com/in/termsandconditions" target="_blank" class="tncLinkText_8dc01">Go to T&amp;C</a>
+                </div>
+                <div class="dialog-footer-actions">
+                    <div class="button-group-contest">
+                        <button class="btn btn--raised">
+                            @*onclick="@OnJoinClick">*@
+                            <div class="align-center-joinContestbtn"><div class="js--contest-join-confirm">Join Contest</div></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<AdImage></AdImage>
+
+
+@inject IUriHelper uriHelper
+@inject AppState appState
+@functions{
+
+     List<UserContest> urcontest => appState.UserContest.ToList();
+
+     protected override void OnInit()
+        {
+            appState.OnContestAdded += StateHasChanged;
+        }
+
+    private void OnJoinClick()
+    {
+        Console.WriteLine("Practice Contest Clicked");
+        uriHelper.NavigateTo("/Contest");
+        Console.WriteLine(urcontest[0].contestId);
+        Console.WriteLine(urcontest[0].userTeamId);
+    }
+}
+
+<style>
+    .backButton {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 70%;
+        margin-left: 74px;
+        margin-top: 620px;
+        color: white;
+    }
+</style>
