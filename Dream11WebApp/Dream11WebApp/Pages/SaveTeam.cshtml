@@ -1,5 +1,4 @@
-﻿@page "/SaveTeam/{matchid:int}"
-@inject IJsonFile jsonFile
+﻿@page "/SaveTeam/{matchid:int}/{userteamid:int}"
 @inject AppState appState
 @inject IUserCustomTeam userSaveTeam
 <div>
@@ -169,157 +168,7 @@
 
         @*Display Caption Vice-caption page*@
         <CricketGround selectedPlayer="@selectedPlayer"></CricketGround>
-        @*<div class="appBgImage_ceacf">
 
-                <div class="footerWrapper_8622b">
-                    <div class="desktopInfoWrapper_7ab46">
-                        <div class="desktopInfoTop_9bf27"><span class="desktopInfoTopLeft_3d48d">India's Biggest</span><span class="desktopInfoTopRight_0db77"> Sports Game</span></div>
-                        <div class="desktopInfoMiddle_ae625">6 Crore+ Users</div>
-                        <div class="desktopInfoBottom_9eb8a">Download the app</div>
-                        <div class="desktopDownloadLinkWrapper_4cfb2">
-                            <a target="_blank" href="https://itunes.apple.com/in/app/dream11-fantasy-sports/id1077286074" class="desktopDownloadLink_a71b9 desktopIosDownloadLink_4631b"></a>
-                            <a target="_blank" href="https://m.d11.io/Dream11-app" class="desktopDownloadLink_a71b9 desktopAndroidDownloadLink_dc1f2"></a>
-                        </div>
-                    </div>
-                    <div class="appBgFooter_d925a"></div>
-                </div>
-
-
-                <div class="team-preview-page js--team-preview teamPreviewContainer_cdfeb desktopTeamPreviewContainer_25c6c">
-                    <div class="content_eaf85 containerWithoutHeader_0f1f0" style="background-image: url(https://assets.dream11.com/public/imgs/cricket-artwork.svg);">
-                        <div class="playerArea_eac11">
-                            <div>
-                                <div class="spaceAround_64779 tall_a7bdc">
-
-                                    <div class="teamPreviewRowWrapper_0c54c">
-                                        <div class="rowTitle_b91f3">Wicket-Keeper</div>
-                                        <div class="spaceAround_64779 rowContent_8aa5f">
-                                            @foreach (var wicketkeeper in playerList.Where(p => p.playerRoleName == Common.PlayerType.WicketKeeper.ToString()).ToList())
-                                            {
-                                                <div class="spaceAround_64779 rowContent_8aa5f">
-                                                    <div class="js--field-player fieldPlayerMain_32975">
-                                                        <div>
-                                                            <div class="playerImageProfile_0cc1f">
-
-                                                                @if (@wicketkeeper.isCaptain == true)
-                                                                {
-                                                                    <img src="https://assets.dream11.com/public/imgs/playerRoleArtwork/Captain_Default.svg" class="playerImageRoleContainer_c7252" style="background-color: rgb(245, 166, 35);">
-                                                                }
-                                                                @if (@wicketkeeper.isViceCaptain == true)
-                                                                {
-                                                                    <img src="https://assets.dream11.com/public/imgs/playerRoleArtwork/ViceCaptain_Default.svg" class="playerImageRoleContainer_c7252" style="background-color: rgb(74, 144, 226);">
-                                                                }
-
-
-                                                                <div class="imageProfileContainer_6e52e">
-                                                                    <div class="player-image-profile__image" style="background-image: url(@wicketkeeper.image);"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="playerTitleContainer_cbc2d"><div class="fieldPlayerTitle_75d21 homeTeamPlayerTitle_c0c14">@wicketkeeper.firstName @wicketkeeper.lastName</div></div>
-                                                        <div class="playerPoints_d4e06">@wicketkeeper.credits  Cr</div>
-                                                    </div>
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-
-                                    <div class="teamPreviewRowWrapper_0c54c">
-                                        <div class="rowTitle_b91f3">Batsmen</div>
-                                        <div class="spaceAround_64779 rowContent_8aa5f">
-                                            @foreach (var bastman in playerList.Where(p => p.playerRoleName == Common.PlayerType.Bastman.ToString()).ToList())
-                                            {
-                                                <div class="spaceAround_64779 rowContent_8aa5f">
-                                                    <div class="js--field-player fieldPlayerMain_32975">
-                                                        <div>
-                                                            <div class="playerImageProfile_0cc1f">
-                                                                @if (@bastman.isCaptain == true)
-                                                                {
-                                                                    <img src="https://assets.dream11.com/public/imgs/playerRoleArtwork/Captain_Default.svg" class="playerImageRoleContainer_c7252" style="background-color: rgb(245, 166, 35);">
-                                                                }
-                                                                @if (@bastman.isViceCaptain == true)
-                                                                {
-                                                                    <img src="https://assets.dream11.com/public/imgs/playerRoleArtwork/ViceCaptain_Default.svg" class="playerImageRoleContainer_c7252" style="background-color: rgb(74, 144, 226);">
-                                                                }
-                                                                <div class="imageProfileContainer_6e52e">
-                                                                    <div class="player-image-profile__image" style="background-image: url(@bastman.image);"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="playerTitleContainer_cbc2d"><div class="fieldPlayerTitle_75d21 awayTeamPlayerTitle_95944">@bastman.firstName @bastman.lastName</div></div>
-                                                        <div class="playerPoints_d4e06">@bastman.credits  Cr</div>
-                                                    </div>
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-                                    <div class="teamPreviewRowWrapper_0c54c">
-                                        <div class="rowTitle_b91f3">All-Rounders</div>
-                                        <div class="spaceAround_64779 rowContent_8aa5f">
-                                            @foreach (var allrounder in playerList.Where(p => p.playerRoleName == Common.PlayerType.Allrounder.ToString()).ToList())
-                                            {
-                                                <div class="spaceAround_64779 rowContent_8aa5f">
-                                                    <div class="js--field-player fieldPlayerMain_32975">
-                                                        <div>
-                                                            <div class="playerImageProfile_0cc1f">
-                                                                @if (@allrounder.isCaptain == true)
-                                                                {
-                                                                    <img src="https://assets.dream11.com/public/imgs/playerRoleArtwork/Captain_Default.svg" class="playerImageRoleContainer_c7252" style="background-color: rgb(245, 166, 35);">
-                                                                }
-                                                                @if (@allrounder.isViceCaptain == true)
-                                                                {
-                                                                    <img src="https://assets.dream11.com/public/imgs/playerRoleArtwork/ViceCaptain_Default.svg" class="playerImageRoleContainer_c7252" style="background-color: rgb(74, 144, 226);">
-                                                                }
-                                                                <div class="imageProfileContainer_6e52e">
-                                                                    <div class="player-image-profile__image" style="background-image: url(@allrounder.image);"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="playerTitleContainer_cbc2d">
-                                                            <div class="fieldPlayerTitle_75d21 awayTeamPlayerTitle_95944">@allrounder.firstName @allrounder.lastName</div>
-                                                        </div>
-                                                        <div class="playerPoints_d4e06">@allrounder.credits  Cr</div>
-                                                    </div>
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-
-                                    <div class="teamPreviewRowWrapper_0c54c">
-                                        <div class="rowTitle_b91f3">Bowlers</div>
-                                        <div class="spaceAround_64779 rowContent_8aa5f">
-                                            @foreach (var bowler in playerList.Where(p => p.playerRoleName == Common.PlayerType.Bowler.ToString()).ToList())
-                                            {
-                                                <div class="spaceAround_64779 rowContent_8aa5f">
-                                                    <div class="js--field-player fieldPlayerMain_32975">
-                                                        <div>
-                                                            <div class="playerImageProfile_0cc1f">
-                                                                @if (@bowler.isCaptain == true)
-                                                                {
-                                                                    <img src="https://assets.dream11.com/public/imgs/playerRoleArtwork/Captain_Default.svg" class="playerImageRoleContainer_c7252" style="background-color: rgb(245, 166, 35);">
-                                                                }
-                                                                @if (@bowler.isViceCaptain == true)
-                                                                {
-                                                                    <img src="https://assets.dream11.com/public/imgs/playerRoleArtwork/ViceCaptain_Default.svg" class="playerImageRoleContainer_c7252" style="background-color: rgb(74, 144, 226);">
-                                                                }
-                                                                <div class="imageProfileContainer_6e52e">
-                                                                    <div class="player-image-profile__image" style="background-image: url(@bowler.image);"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div><div class="playerTitleContainer_cbc2d">
-                                                            <div class="fieldPlayerTitle_75d21 awayTeamPlayerTitle_95944">@bowler.firstName @bowler.lastName</div>
-                                                        </div><div class="playerPoints_d4e06">@bowler.credits  Cr</div>
-                                                    </div>
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>*@
         @*End*@
 
 
@@ -329,12 +178,15 @@
 @inject IJSRuntime JSRuntime
 @inject IUriHelper uriHelper
 @inject Common common
+@inject IplayerData playerobj
 @functions{
 
     //List<Player>
     //playerList => appState.players.ToList();
     [Parameter]
     int matchid { get; set; }
+    [Parameter]
+    int userteamid { get; set; }
     List<Player2> selectedPlayer { get; set; }
     List<Player2> playerList { get; set; }
     UserTeam userTeam { get; set; }
@@ -356,11 +208,16 @@
         exampleJsInterop = new ExampleJsInterop(JSRuntime);
         playerList = await exampleJsInterop.GetItem<List<Player2>>("CreateTeam");
 
-        // playerList  = common.GetPlayerList(await exampleJsInterop.GetItem<UserTeam>("CreateTeam"));
-
         authToken = await exampleJsInterop.GetStringItem<Object>("utoken");
-
-        selectedPlayer = playerList.Where(p => p.player.isSelected == true).ToList();
+        if (playerList == null)
+        {
+            selectedPlayer = await playerobj.GetPlayerData(matchid, userteamid, authToken);
+            selectedPlayer = selectedPlayer.Where(p => p.player.isSelected == true).ToList();
+        }
+        else
+        {
+            selectedPlayer = playerList.Where(p => p.player.isSelected == true).ToList();
+        }
 
         //string _saveteam = playerList.Where(p => p.isCaptain == true && p.isViceCaptain == true).ToString();
         //if (!string.IsNullOrEmpty(_saveteam)) this.btnsave = false;
@@ -455,6 +312,9 @@
     private async Task UserSaveTeam()
     {
         var playerListobj = await exampleJsInterop.GetItem<List<Player2>>("CreateTeam");
+
+        if (playerListobj == null) playerListobj = selectedPlayer.Where(p => p.player.isSelected == true).ToList();;
+
         UserTeam userTeam = new UserTeam();
         foreach (var player in playerListobj.Where(p => p.player.isSelected == true).ToList())
         {
@@ -472,9 +332,9 @@
         //userTeam = common.localAddPlayer(playerList, matchid);
 
         //userTeam.players = playerList.Where(p => p.isSelected == true).ToList();
-        await exampleJsInterop.SetItem<UserTeam>("SaveTeam", userTeam);
+       // await exampleJsInterop.SetItem<UserTeam>("SaveTeam", userTeam);
         await userSaveTeam.SaveTeam(userTeam, authToken);
         await exampleJsInterop.RemoveItem("CreateTeam");
-        uriHelper.NavigateTo("/Contest");
+        uriHelper.NavigateTo("/Contest/" + matchid);
     }
 }

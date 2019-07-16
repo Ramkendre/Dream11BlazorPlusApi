@@ -9,7 +9,8 @@ namespace Dream11WebApp.Model
 {
     public interface IplayerData
     {
-        Task<Player2[]> GetPlayerInfo(int matchid,Object utoken);
+        Task<Player2[]> GetPlayerInfo(int matchid,int userteamid,Object utoken);
+        Task<List<Player2>> GetPlayerData(int matchid,int userTeamId,Object utoken);
     }
 
     public class PlayerData : IplayerData
@@ -19,11 +20,17 @@ namespace Dream11WebApp.Model
         {
             this.httpClient = httpclient;
         }
-        public async Task<Player2[]> GetPlayerInfo(int matchid,Object utoken)
+        public async Task<Player2[]> GetPlayerInfo(int matchid, int userteamid, Object utoken)
         {
             // var data = await httpClient.GetJsonAsync<Player[]>($"{CommanUrl.url}UserTeam/GetallPlayers/0/{matchid}");
            // var data = await BlazorHttpExtensions.GetJsonAsync<Player[]>(this.httpClient,$"{CommanUrl.url}UserTeam/GetallPlayers/0/{matchid}",utoken.ToString());
-            var data = await BlazorHttpExtensions.GetJsonAsync<Player2[]>(this.httpClient,$"{CommanUrl.url}UserTeam/UserTeamPlayers/0/{matchid}",utoken.ToString());
+            var data = await BlazorHttpExtensions.GetJsonAsync<Player2[]>(this.httpClient,$"{CommanUrl.url}UserTeam/UserTeamPlayers/{userteamid}/{matchid}",utoken.ToString());
+
+            return data;
+        }
+        public async Task<List<Player2>> GetPlayerData(int matchid,int userTeamId, Object utoken)
+        {
+            var data = await BlazorHttpExtensions.GetJsonAsync<List<Player2>>(this.httpClient, $"{CommanUrl.url}UserTeam/UserTeamPlayers/{userTeamId}/{matchid}", utoken.ToString());
 
             return data;
         }

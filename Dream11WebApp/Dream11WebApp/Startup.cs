@@ -13,15 +13,17 @@ namespace Dream11WebApp
             services.AddSingleton<ILogin, LoginData>();
             services.AddSingleton<IUserCustomTeam, UserCustomTeam>();
             services.AddSingleton<IContestData, ContestData>();
-            services.AddSingleton<IJsonFile, JsonFile>();
+            //services.AddSingleton<IJsonFile, JsonFile>();
             services.AddSingleton<AppState>();
             services.AddSingleton<Common>();
             services.AddScoped<ToastService>();
+            
         }
 
         public void Configure(IComponentsApplicationBuilder app)
         {
             app.AddComponent<App>("app");
         }
+
     }
 }

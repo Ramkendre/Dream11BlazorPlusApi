@@ -9,6 +9,8 @@ namespace Dream11WebApp.Model
     public interface IUserCustomTeam
     {
         Task SaveTeam(UserTeam players,Object utoken);
+        Task<int> UserTeams(int matchid, Object utoken);
+        Task<UserTeams[]> GetUserTeams(int matchid, Object utoken);
     }
     public class UserCustomTeam : IUserCustomTeam
     {
@@ -26,6 +28,37 @@ namespace Dream11WebApp.Model
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+        }
+
+        public async Task<int> UserTeams(int matchid, Object utoken)
+        {
+            try
+            {
+                var data = await BlazorHttpExtensions.GetJsonAsync<int>(this._httpClient, $"{CommanUrl.url}UserTeam/userTeamCount/{matchid}", utoken.ToString());
+
+                return data;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return 0;
+            }
+        }
+
+
+        public async Task<UserTeams[]> GetUserTeams(int matchid, Object utoken)
+        {
+            try
+            {
+                var data = await BlazorHttpExtensions.GetJsonAsync<UserTeams[]>(this._httpClient, $"{CommanUrl.url}UserTeam/matchUserTeam/{matchid}", utoken.ToString());
+
+                return data;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
             }
         }
     }

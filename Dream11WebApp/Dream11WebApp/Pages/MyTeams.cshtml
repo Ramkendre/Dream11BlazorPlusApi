@@ -1,4 +1,5 @@
-﻿@page  "/MyTeams"
+﻿@page  "/MyTeams/{matchid:int}"
+
 
 <div class="lazy-container-contest-home">
     <div class="lazy-contest-home">
@@ -19,7 +20,7 @@
                                         </div>
                                     </div>
                                     <div class="headerCenter_4d6f0">
-                                        <div class="headerTitle_fd62d">my teams</div>
+                                        <div class="headerTitle_fd62d">MY TEAMS</div>
                                     </div>
                                     <div class="headerRight_ba2d2"></div>
                                 </div>
@@ -40,62 +41,85 @@
                             </div>
                             <div class="account-dialog"></div>
                         </div>
-                        <div class="scroll">
-                            <div class="my-teams__body js--my-teams">
-                                <div class="my-teams__title">You can create up to 6 teams for a single contest</div>
 
-                                <div class="my-teams">
-                                    <div class="my-teams__team">
-                                        <div class="topSection_083bc">
-                                            <div>Team: 1</div>
-                                        </div><div>
-                                            <div class="my-teams__bottom-section bottomSection_d41f9">
-                                                <div class="my-teams__role-entity">
-                                                    <div>
-                                                        <div class="my-teams__role-entity__title my-teams__role-entity--even">Captain</div>
-                                                        <div class="my-teams__role-entity__player-name">Doraiswamy Subramanium</div>
+                        @if (userTeamPlayer == null)
+                        {
+                            <div class="spinner-border text-info" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        }
+                        else
+                        {
+
+                            <div class="userteamscrollRight">
+                                <div class="my-teams__body js--my-teams">
+                                    <div class="my-teams__title">You can create up to 6 teams for a single contest</div>
+
+
+                                    @foreach (var userPlayer in userTeamPlayer)
+                                    {
+
+                                        <div class="my-teams">
+                                            <div class="my-teams__team">
+                                                <div class="topSection_083bc">
+                                                    <div>Team: @userPlayer.userTeamId</div>
+                                                </div><div>
+                                                    <div class="my-teams__bottom-section bottomSection_d41f9">
+                                                        <div class="my-teams__role-entity">
+                                                            <div>
+                                                                <div class="my-teams__role-entity__title my-teams__role-entity--even">Captain</div>
+                                                                @foreach (var caption in @userPlayer.players.Where(c => c.isCaptain == true))
+                                                                {
+                                                                    <div class="my-teams__role-entity__player-name">@caption.player.firstName @caption.player.lastName</div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <div class="my-teams__role-entity">
+                                                            <div>
+                                                                <div class="my-teams__role-entity__title my-teams__role-entity--odd">Vice Captain</div>
+                                                                @foreach (var viceCaption in @userPlayer.players.Where(c => c.isViceCaptain == true))
+                                                                {
+                                                                    <div class="my-teams__role-entity__player-name">@viceCaption.player.firstName @viceCaption.player.lastName</div>
+                                                                }
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="my-teams__role-entity">
-                                                    <div>
-                                                        <div class="my-teams__role-entity__title my-teams__role-entity--odd">Vice Captain</div>
-                                                        <div class="my-teams__role-entity__player-name">Bhavin Thakkar</div>
+                                                <div class="buttonBar_09c83">
+                                                    <a class="js--icon-edit resetButton_62ab8" onclick="@(() => Edit(userPlayer.userTeamId))">
+                                                        <div class="primaryButtonAlign_02538">
+                                                            @*<i class="materialIcon_10a4f" style="height: 14px; width: 14px; font-size: 14px;">edit</i>*@
+                                                            <span class="iconContent_3cbfd">EDIT</span>
+                                                        </div>
+                                                    </a>
+                                                    <div class="js--my-teams-team-preview-btn">
+                                                        <button class="new-button resetButton_62ab8" onclick="@(() => PreviewUserTeam(userPlayer.userTeamId))">
+                                                            <div class="primaryButtonAlign_02538">
+                                                                @*<i class="materialIcon_10a4f" style="height: 14px; width: 14px; font-size: 14px;">remove_red_eye</i>*@
+                                                                <span class="iconContent_3cbfd">PREVIEW</span>
+                                                            </div>
+                                                        </button>
                                                     </div>
+                                                    <a class="js--icon-content_copy resetButton_62ab8" onclick="@(() => Clone(userPlayer.userTeamId))">
+                                                        <div class="primaryButtonAlign_02538">
+                                                            @*<i class="materialIcon_10a4f" style="height: 14px; width: 14px; font-size: 14px;">content_copy</i>*@
+                                                            <span class="iconContent_3cbfd">CLONE</span>
+                                                        </div>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="buttonBar_09c83">
-                                            <a class="js--icon-edit resetButton_62ab8" href="/Players/1/0">
-                                                <div class="primaryButtonAlign_02538">
-                                                    @*<i class="materialIcon_10a4f" style="height: 14px; width: 14px; font-size: 14px;">edit</i>*@
-                                                    <span class="iconContent_3cbfd">EDIT</span>
-                                                </div>
-                                            </a>
-                                            <div class="js--my-teams-team-preview-btn">
-                                                <button class="new-button resetButton_62ab8" onclick="@PreviewUserTeam">
-                                                    <div class="primaryButtonAlign_02538">
-                                                        @*<i class="materialIcon_10a4f" style="height: 14px; width: 14px; font-size: 14px;">remove_red_eye</i>*@
-                                                        <span class="iconContent_3cbfd">PREVIEW</span>
-                                                    </div>
-                                                </button>
-                                            </div>
-                                            <a class="js--icon-content_copy resetButton_62ab8" href="/Players/1/0">
-                                                <div class="primaryButtonAlign_02538">
-                                                    @*<i class="materialIcon_10a4f" style="height: 14px; width: 14px; font-size: 14px;">content_copy</i>*@
-                                                    <span class="iconContent_3cbfd">CLONE</span>
-                                                </div>
-                                            </a>
-                                        </div>
+
+                                    }
+                                    <div class="my-teams__footer footer_d9dd6">
+                                        <a class="btn btn--raised btn--white" onclick="@CreateTeam">
+                                            <span class="js--my-teams__create-team-btn">Create Team @teamcount</span>
+                                        </a>
                                     </div>
                                 </div>
-
-                                <div class="my-teams__footer footer_d9dd6">
-                                    <a class="btn btn--raised btn--white" onclick="@CreateTeam">
-                                        <span class="js--my-teams__create-team-btn">Create Team 2</span>
-                                    </a>
-                                </div>
                             </div>
-                        </div>
+
+                        }
                     </div>
                 </div>
                 <div></div>
@@ -105,21 +129,56 @@
 </div>
 
 
+
 @if (this.btnpreview == true)
-{<Preview></Preview>}
-else { <AdImage></AdImage>}
+{<Preview bind-userPlayer="@userPlayer"></Preview>}
+else
+{ <AdImage></AdImage>}
 
 @inject IUriHelper  uriHelper
+@inject IJSRuntime JSRuntime
+@inject IUserCustomTeam userTeam
 @functions{
-
+    [Parameter]
+    int matchid { get; set; }
     bool btnpreview { get; set; } = false;
+    int teamcount { get; set; }
+    Object autoken { get; set; }
+    [Parameter]
+    UserTeams[] userPlayer { get; set; }
+    UserTeams[] userTeamPlayer { get; set; }
+    Player2[] players { get; set; }
+    protected override async Task OnInitAsync()
+    {
+        await LoadUserTeams(matchid);
+    }
+    async Task LoadUserTeams(int matchid)
+    {
+        autoken = await new ExampleJsInterop(JSRuntime).GetStringItem<Object>
+            ("utoken");
+        userTeamPlayer = await userTeam.GetUserTeams(matchid, autoken);
+
+        teamcount = userTeamPlayer.Length + 1;
+    }
     private void CreateTeam()
     {
-        uriHelper.NavigateTo("/Players/1/0");
+        uriHelper.NavigateTo("/Players/" + matchid + "/0");
     }
-    private void PreviewUserTeam()
+    private void PreviewUserTeam(int userteamId)
     {
+        userPlayer = userTeamPlayer.Where(u => u.matchId == matchid && u.userTeamId == userteamId).ToArray();
         btnpreview = true;
+    }
+
+    private void Edit(int userteamId)
+    {
+
+        uriHelper.NavigateTo("/Players/" + matchid + "/" + userteamId);
+    }
+    private void Clone(int userteamId)
+    {
+
+        uriHelper.NavigateTo("/Players/" + matchid + "/" + userteamId);
     }
 }
 

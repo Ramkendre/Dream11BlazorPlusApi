@@ -1,4 +1,4 @@
-﻿@page "/Contest"
+﻿@page "/Contest/{matchid:int}"
 
 <div>
     <div class="lazy-contest-home">
@@ -300,37 +300,7 @@
                             </div>
                         </div>
                     </a>
-                    @*<a class="js--contest-card contestCardWrapper_fbec5 containerShadow_c2514" href="/cricket/leaderboard/england-vs-pakistan-odi/1043/14645/641952761">
-                            <div class="contestSpecMoneyInfo_20124">
-                                <div class="contestSpecRow_01429">
-                                    <div class="js--contest-card__prize-pool prizePool_565d2">Practice Contest</div><div>
-                                        <div style="display: flex; align-items: center;">
-                                            <div class="js--contest-card-join-btn">
-                                                <button class="new-button smallGreenButton_4bae7">JOIN</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="contestProgressBarContainer_0efc1">
-                                <div class="contestProgressBar_eba45">
-                                    <div class="contestProgressInner_ead13" style="width: 8%;"></div>
-                                </div>
-                            </div>
-                            <div class="spotsContainer_9c427">
-                                <div class="contestSpecRow_01429">
-                                    <div class="spotLefts_8d583 contestFilling_14509">8 spots left</div>
-                                    <div class="totalSpots_b62ba">100 spots</div>
-                                </div>
-                            </div><div class="contestSpec_a3ebb">
-                                <div class="iconLabelGroup_f55e1"></div>
-                                <div class="iconLabelGroup_f55e1" style="justify-content: flex-end;">
-                                    <div class="squareWithTwoRoundCorner_1291a">C</div><div style="padding-left: 12px;">
-                                        <div class="squareWithTwoRoundCorner_1291a">S</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>*@
+                   
                     <div class="segmentFooterContainer_467dc">
                         <div class="segmentFooterRightContainer_65267">
                             <span class="js--more-link">
@@ -351,7 +321,7 @@
 </div>
 
 <div>
-    <FooterButtons></FooterButtons>
+    <FooterButtons bind-matchid="@matchid"></FooterButtons>
 </div>
 
 @*<PracticeContest userContests="@usercontest" />*@
@@ -361,7 +331,8 @@
 @inject IUriHelper uriHelper
 @inject AppState appState
 @functions{
-
+    [Parameter]
+    int matchid { get; set; }
     UserContest usercontest { get; set; }
 
     private void JoinPracticeContest()
@@ -382,4 +353,6 @@
 
         StateHasChanged();
     }
+
+   
 }

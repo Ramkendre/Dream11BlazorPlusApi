@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,15 @@ using System.Threading.Tasks;
 
 namespace Dream11WebApp.Model
 {
-    public class Common
+    public  class Common 
     {
         public enum SportType { CRICKET, FOOTBALL, NBA, HOCKEY }
         public enum PlayerType { WK, Bat, Allrounder, Bowler }
         public enum RoleType { WK, BAT, AR, BOWL }
 
         public enum ToastLevel { Info, Success, Warning, Error }
+
+     
 
         List<Player> players = new List<Player>();
         Team team = new Team();

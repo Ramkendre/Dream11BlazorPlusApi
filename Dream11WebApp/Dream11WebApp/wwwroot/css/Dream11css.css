@@ -2158,6 +2158,16 @@
     bottom: 0;
     overflow-y: scroll;
 }
+.userteamscrollRight {
+    position: fixed;
+    left: 0px;
+    width: 592px;
+    right: 0;
+    background-size: cover;
+    top: 0px;
+    bottom: 0;
+    overflow-y: scroll;
+}
 
 
 /*Registration form*/
@@ -2530,6 +2540,7 @@
 }
 .containerWithHeaderDesktop_d52fe {
     height: calc(100% - 100px);
+    width:50%;
     min-height: calc(100% - 100px);
 }
 .headerWebKitSticky_3d076 {
@@ -2538,6 +2549,7 @@
 
 .headerSticky_41a22 {
     position: sticky;
+    width: 50%;
     top: 0px;
 }
 .mainContainerDesktopHeight_79be4 {
