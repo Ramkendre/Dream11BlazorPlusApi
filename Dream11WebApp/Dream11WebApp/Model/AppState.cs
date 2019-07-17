@@ -9,6 +9,7 @@ namespace Dream11WebApp.Model
     {
         public readonly List<Expense> _expenses = new List<Expense>();
         public IReadOnlyList<Expense> Expenses => _expenses;
+        
         public event Action OnExpenseAdded;
         public void AddExpense(Expense expense)
         {

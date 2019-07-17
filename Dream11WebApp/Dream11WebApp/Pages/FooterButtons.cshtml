@@ -1,12 +1,20 @@
 ﻿<div class="contest-footer container_607ce">
     <div class="js--contest-footer innerContainer_b8f9b">
         <div class="button-group">
-            <a class="btn btn--flat btn--bordered createbtn--bordered--white" style="border-color:white">
-                @if (teamCount == 0)
-                {<div class="text-color--white" onclick="@CreateTeam">Create Team</div>}
-                else
-                { <div class="text-color--white" onclick="@MyTeam">My Team (@teamCount)</div>}
-            </a>
+
+            @if (teamCount == 0)
+            {
+                <a class="btn btn--flat btn--bordered createbtn--bordered--white" style="border-color:white" onclick="@CreateTeam">
+                    <div class="text-color--white">Create Team</div>
+                </a>
+            }
+            else
+            {
+                <a class="btn btn--flat btn--bordered createbtn--bordered--white" style="border-color:white" onclick="@MyTeam">
+                    <div class="text-color--white">My Team (@teamCount)</div>
+                </a>
+            }
+
             <a class="btn btn--flat btn--background--white">
                 <div class="js--contest-footer__joined-contests-btn">
                     <div class="buttonItemContainer_029e0">

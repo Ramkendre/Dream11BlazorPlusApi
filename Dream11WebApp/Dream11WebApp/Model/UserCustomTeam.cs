@@ -8,24 +8,25 @@ namespace Dream11WebApp.Model
 {
     public interface IUserCustomTeam
     {
-        Task SaveTeam(UserTeam players,Object utoken);
+        Task SaveTeam(UserTeam players, Object utoken);
         Task<int> UserTeams(int matchid, Object utoken);
         Task<UserTeams[]> GetUserTeams(int matchid, Object utoken);
     }
     public class UserCustomTeam : IUserCustomTeam
     {
         HttpClient _httpClient;
-        public UserCustomTeam(HttpClient httpClient){
+        public UserCustomTeam(HttpClient httpClient)
+        {
             _httpClient = httpClient;
-            }
-        public async Task SaveTeam(UserTeam players,Object utoken)
+        }
+        public async Task SaveTeam(UserTeam players, Object utoken)
         {
             try
             {
                 await BlazorHttpExtensions.PostJsonAsync<UserTeam>(_httpClient, $"{CommanUrl.url}UserTeam", players, utoken.ToString());
                 Console.WriteLine("Ok");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -78,7 +79,7 @@ namespace Dream11WebApp.Model
     public class UserTeam
     {
         public int matchid { get; set; }
-        public List<Player2> players  = new List<Player2>();
+        public List<Player2> players = new List<Player2>();
         public string userTeamName { get; set; } = "Team";
     }
 }

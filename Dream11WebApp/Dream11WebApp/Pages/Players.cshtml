@@ -11,12 +11,8 @@
             <div>
                 <div class="headerContainer_85dde headerFixed_38df7">
                     <div class="defaultHeaderContent_00a63">
-                        <div class="headerLeft_97209">
-                            @*<button class="new-button whiteIconButton_6998a">
-                            *@
-
-                            @*<i class="materialIcon_10a4f" style="height: 24px; width: 24px; font-size: 24px;">keyboard_arrow_left</i>*@
-                            <i class="fas fa-angle-left" style="font-size:48px;color:white"></i>
+                        <div class="headerLeft_97209" onclick="@BackArrow">
+                            <i class="materialIcon_10a4f" style="height: 24px; width: 24px; font-size: 24px;">keyboard_arrow_left</i>
                         </div>
                         <div class="headerCenter_aa154"><span class="timer_3d48d">2h 01m left</span></div>
                         <div class="headerRight_b78f0">
@@ -127,7 +123,7 @@
                                 <div class="playerCardCell_bf9d8 playerPointsCell_aa0e3 activeSortKey_c7202">
                                     <span>
                                         CREDITS<span>
-                                            @*<i class="materialIcon_10a4f" style="height: 10px; width: 10px; font-size: 10px;">arrow_downward</i>*@
+                                            <i class="materialIcon_10a4f" style="height: 10px; width: 10px; font-size: 10px;">arrow_downward</i>
                                         </span>
                                     </span>
                                 </div>
@@ -221,40 +217,40 @@
 @inject ToastService toastService
 @inject Common  common
 @functions{
-        [Parameter]
-        int matchid { get; set; }
-        [Parameter]
-        int userteamid { get; set; }
+    [Parameter]
+    int matchid { get; set; }
+    [Parameter]
+    int userteamid { get; set; }
 
-        bool btncontinue { get; set; } = false;
-        double totalCredits { get; set; } = 100;
-        Player2[] Playerlist { get; set; }
-        Player2[] playerlistlocal { get; set; }
-        List<Player2> selectedPlayer { get; set; }
-        ExampleJsInterop exampleJsInterop;
-        Object autoken { get; set; }
-        protected override async Task OnInitAsync()
-        {
+    bool btncontinue { get; set; } = false;
+    double totalCredits { get; set; } = 100;
+    Player2[] Playerlist { get; set; }
+    Player2[] playerlistlocal { get; set; }
+    List<Player2> selectedPlayer { get; set; }
+    ExampleJsInterop exampleJsInterop;
+    Object autoken { get; set; }
+    protected override async Task OnInitAsync()
+    {
 
-            appState._players.Clear();
-            selectedPlayer = new List<Player2>();
-            if (playerlistlocal == null)
-                await LoadplayerInfo(matchid);
-        }
-        async Task LoadplayerInfo(int matchid)
-        {
-            exampleJsInterop = new ExampleJsInterop(JSRuntime);
-            playerlistlocal = await exampleJsInterop.GetItem<Player2[]>("CreateTeam");
-            // playerlistlocal = common.GetPlayerArray(await exampleJsInterop.GetItem<UserTeam>("CreateTeam"));
-            autoken = await exampleJsInterop.GetStringItem<Object>("utoken");
-            if (playerlistlocal == null)       playerlistlocal = await PlayerData.GetPlayerInfo(matchid,userteamid, autoken); 
-           // { playerlistlocal = await PlayerData.GetPlayerInfo(matchid, autoken); }
-            //else
-            //{
+        appState._players.Clear();
+        selectedPlayer = new List<Player2>();
+        if (playerlistlocal == null)
+            await LoadplayerInfo(matchid);
+    }
+    async Task LoadplayerInfo(int matchid)
+    {
+        exampleJsInterop = new ExampleJsInterop(JSRuntime);
+        playerlistlocal = await exampleJsInterop.GetItem<Player2[]>("CreateTeam");
+        // playerlistlocal = common.GetPlayerArray(await exampleJsInterop.GetItem<UserTeam>("CreateTeam"));
+        autoken = await exampleJsInterop.GetStringItem<Object>("utoken");
+        if (playerlistlocal == null)       playerlistlocal = await PlayerData.GetPlayerInfo(matchid,userteamid, autoken);
+        // { playerlistlocal = await PlayerData.GetPlayerInfo(matchid, autoken); }
+        //else
+        //{
 
-            if (playerlistlocal.Where(T => T.player.isSelected == true).Count() == 11) this.btncontinue = true;
-            if (playerlistlocal.Where(T => T.player.isSelected == true).Count() != 11) this.btncontinue = false;
-      //  }
+        if (playerlistlocal.Where(T => T.player.isSelected == true).Count() == 11) this.btncontinue = true;
+        if (playerlistlocal.Where(T => T.player.isSelected == true).Count() != 11) this.btncontinue = false;
+        //  }
 
         Playerlist = playerlistlocal.Where(p => p.player.playerRoleName == Common.PlayerType.WK.ToString()).ToArray();
         selectedPlayer = playerlistlocal.Where(T => T.player.isSelected == true).ToList();
@@ -424,4 +420,8 @@
         UriHelper.NavigateTo("/SaveTeam/" + matchid+"/"+userteamid);
     }
 
+    private void BackArrow()
+    {
+            UriHelper.NavigateTo("/Contest/" + matchid);
+    }
 }
